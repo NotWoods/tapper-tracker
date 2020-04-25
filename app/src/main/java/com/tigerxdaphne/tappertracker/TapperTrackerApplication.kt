@@ -1,18 +1,18 @@
 package com.tigerxdaphne.tappertracker
 
 import android.app.Application
-import com.tigerxdaphne.tappertracker.dagger.DaggerTapperTrackerComponent
-import com.tigerxdaphne.tappertracker.dagger.DatabaseModule
-import com.tigerxdaphne.tappertracker.dagger.TapperTrackerComponent
+import com.tigerxdaphne.tappertracker.koin.databaseModule
+import com.tigerxdaphne.tappertracker.koin.systemServiceModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class TapperTrackerApplication : Application() {
-    private lateinit var component: TapperTrackerComponent
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerTapperTrackerComponent
-            .builder()
-            .databaseModule(DatabaseModule(this))
-            .build()
+        startKoin {
+            androidContext(this@TapperTrackerApplication)
+            modules(databaseModule, systemServiceModule)
+        }
     }
 }

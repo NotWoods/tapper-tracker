@@ -1,0 +1,23 @@
+package com.tigerxdaphne.tappertracker.koin
+
+import android.nfc.NfcManager
+import androidx.core.content.getSystemService
+import androidx.room.Room
+import com.tigerxdaphne.tappertracker.db.AppDatabase
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
+
+val databaseModule = module {
+    single<AppDatabase> {
+        Room.databaseBuilder(
+            androidContext(),
+            AppDatabase::class.java,
+            "tapper_tracker_database"
+        ).build()
+    }
+    single { get<AppDatabase>().tappedTagDao() }
+}
+
+val systemServiceModule = module {
+    single { androidContext().getSystemService<NfcManager>() }
+}

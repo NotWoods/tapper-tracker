@@ -24,12 +24,13 @@ private enum class HowToTapContent(
         val showSettingsButton: Boolean
 ) {
     NFC_DISABLED(R.drawable.ic_nfc_disabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, true),
-    ADD_TAG(R.drawable.ic_nfc_disabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, false)
+    ADD_TAG(R.drawable.ic_nfc_enabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, false)
 }
 
 class HowToTapFragment : Fragment() {
 
     private var binding: FragmentHowToTapBinding? = null
+    private var lastContent: HowToTapContent? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -70,22 +71,26 @@ class HowToTapFragment : Fragment() {
      * Display the content described in the given enum.
      */
     private fun displayContent(content: HowToTapContent) {
-        val binding = binding!!
-        binding.icon.setImageResource(content.icon)
-        binding.title.text = getString(content.title)
-        binding.description.text = getString(content.description)
-        binding.button.isVisible = content.showSettingsButton
+        if (content != lastContent) {
+            val binding = binding!!
+            binding.icon.setImageResource(content.icon)
+            binding.title.text = getString(content.title)
+            binding.description.text = getString(content.description)
+            binding.button.isVisible = content.showSettingsButton
+            lastContent = content
+        }
     }
 
     /**
      * Open the Settings app.
      */
     private fun openNfcSettings() {
-        val intent = if (SDK_INT >= Build.VERSION_CODES.Q) {
-            Intent(Settings.Panel.ACTION_NFC)
+        val action = if (SDK_INT >= Build.VERSION_CODES.Q) {
+            Settings.Panel.ACTION_NFC
         } else {
-            Intent(Settings.ACTION_NFC_SETTINGS)
+            Settings.ACTION_NFC_SETTINGS
         }
+        val intent = Intent(action)
         startActivity(intent)
     }
 }

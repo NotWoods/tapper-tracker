@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.dagger
+package com.tigerxdaphne.tappertracker.koin
 
 import javax.inject.Qualifier
 

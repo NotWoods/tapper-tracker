@@ -1,8 +1,6 @@
 package com.tigerxdaphne.tappertracker.db
 
-import javax.inject.Inject
-
-class TappedRepository @Inject constructor(
+class TappedRepository(
     private val tappedTagDao: TappedTagDao
 ) {
 }

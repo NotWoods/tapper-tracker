@@ -2,23 +2,23 @@ package com.tigerxdaphne.tappertracker.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.ui.unit.Duration
-import java.util.Date
+import org.threeten.bp.Period
+import org.threeten.bp.ZonedDateTime
 
 /**
  * Stores data about a single NFC tag.
  * @property id - NFC Tag ID, corresponds to [android.nfc.Tag.getId].
+ * @property lastTapped - Time and date when the NFC tag was last tapped.
  * @property reminderDuration - Time before reminding the user about the tag.
  * @property customName Custom name for the tag.
- * @property lastTapped - Time and date when the NFC tag was last tapped.
  */
 @Entity(tableName = "tags")
 data class TappedTag(
     @PrimaryKey
     val id: ByteArray,
-    val reminderDuration: Duration,
-    val customName: String = "",
-    val lastTapped: Date = Date()
+    val lastTapped: ZonedDateTime,
+    val reminderDuration: Period,
+    val customName: String = ""
 ) {
 
     /**

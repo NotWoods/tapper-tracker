@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [TappedTag::class], version = 1)
-@TypeConverters(Converters::class)
+@TypeConverters(TimeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun tappedTagDao(): TappedTagDao
