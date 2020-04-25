@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tapper Tracker</string>
+
+    <string name="nfc_disabled_title">NFC Disabled</string>
+    <string name="nfc_disabled_description">NFC is currently disabled on your phone, but required for Tapper Tracker to function. Please enabled it in your device settings.</string>
+    <string name="open_nfc_settings">Open NFC Settings</string>
 </resources>
