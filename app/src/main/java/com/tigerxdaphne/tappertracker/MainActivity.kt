@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import com.tigerxdaphne.tappertracker.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,9 +21,9 @@ class MainActivity : AppCompatActivity() {
         when {
             // NFC not supported on the device
             nfcAdapter == null -> {}
-            // NFC is turned off
-            !nfcAdapter.isEnabled -> {}
             // Good to go
+            nfcAdapter.isEnabled -> {}
+            // NFC is turned off
             else -> {}
         }
     }

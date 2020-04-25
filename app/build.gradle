@@ -28,6 +28,11 @@ android {
     viewBinding {
         enabled = true
     }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -45,6 +50,9 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.dagger:dagger:$dagger_version"
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.room:room-compiler:$room_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

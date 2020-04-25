@@ -11,9 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.NfcDisabledFragmentBinding
-import java.util.logging.Logger
 
 private const val OPEN_NFC_SETTINGS = 10
 

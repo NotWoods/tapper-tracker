@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Tapper Tracker</string>
 
-    <string name="nfc_disabled_title">NFC Disabled</string>
+    <string name="add_tag_title">Tap a tag to track!</string>
+    <string name="add_tag_description">Place your device on top of a Tapper Tracker Tag to start tracking it.</string>
+
+    <string name="nfc_disabled_title">NFC disabled</string>
     <string name="nfc_disabled_description">NFC is currently disabled on your phone, but required for Tapper Tracker to function. Please enabled it in your device settings.</string>
     <string name="open_nfc_settings">Open NFC Settings</string>
+
+    <string name="no_nfc_title">NFC not supported</string>
+    <string name="no_nfc_description">NFC is required for Tapper Tracker to function, but not supported by your device. Please use a phone with NFC support.</string>
 </resources>
