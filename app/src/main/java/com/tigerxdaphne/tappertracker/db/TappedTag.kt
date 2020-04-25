@@ -2,7 +2,7 @@ package com.tigerxdaphne.tappertracker.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.Duration
+import androidx.ui.unit.Duration
 import java.util.Date
 
 /**
