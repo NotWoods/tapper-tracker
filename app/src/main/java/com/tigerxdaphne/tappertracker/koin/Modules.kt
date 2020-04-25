@@ -17,7 +17,3 @@ val databaseModule = module {
     }
     single { get<AppDatabase>().tappedTagDao() }
 }
-
-val systemServiceModule = module {
-    single { androidContext().getSystemService<NfcManager>() }
-}

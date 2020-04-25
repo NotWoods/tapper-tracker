@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/howToTapFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.HowToTapFragment"
+        android:label="HowToTapFragment"
+        tools:layout="@layout/fragment_how_to_tap" >
+        <action
+            android:id="@+id/action_howToTapFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noNfcFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.NoNfcFragment"
+        android:label="fragment_no_nfc"
+        tools:layout="@layout/fragment_no_nfc" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_howToTapFragment"
+            app:destination="@id/howToTapFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_noNfcFragment"
+            app:destination="@id/noNfcFragment" />
+    </fragment>
+    <fragment android:id="@+id/detailsFragment" >
+        <action
+            android:id="@+id/action_detailsFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+</navigation>

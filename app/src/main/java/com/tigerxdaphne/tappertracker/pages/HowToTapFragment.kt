@@ -2,6 +2,7 @@ package com.tigerxdaphne.tappertracker.pages
 
 import android.content.Intent
 import android.nfc.NfcAdapter
+import android.nfc.NfcManager
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.core.view.isVisible
 
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentHowToTapBinding
+import org.koin.android.ext.android.inject
 
 private enum class HowToTapContent(
         @DrawableRes val icon: Int,
@@ -24,10 +26,12 @@ private enum class HowToTapContent(
         val showSettingsButton: Boolean
 ) {
     NFC_DISABLED(R.drawable.ic_nfc_disabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, true),
-    ADD_TAG(R.drawable.ic_nfc_enabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, false)
+    ADD_TAG(R.drawable.ic_nfc_enabled, R.string.add_tag_title, R.string.add_tag_description, false)
 }
 
 class HowToTapFragment : Fragment() {
+
+    private val nfcManager: NfcManager? by inject()
 
     private var binding: FragmentHowToTapBinding? = null
     private var lastContent: HowToTapContent? = null
@@ -45,7 +49,7 @@ class HowToTapFragment : Fragment() {
      */
     override fun onResume() {
         super.onResume()
-        checkNfc(NfcAdapter.getDefaultAdapter(context))
+        checkNfc(nfcManager!!.defaultAdapter)
     }
 
     override fun onDestroyView() {

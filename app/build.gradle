@@ -55,6 +55,9 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
 
     //noinspection LifecycleAnnotationProcessorWithJava8
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.room:room-compiler:$room_version"
 
