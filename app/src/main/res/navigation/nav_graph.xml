@@ -5,6 +5,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/listFragment">
 
+    <!--<action
+        android:id="@+id/action_global_addTagFragment"
+        app:destination="@id/addTagFragment" />-->
+
     <fragment
         android:id="@+id/howToTapFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.HowToTapFragment"
@@ -38,5 +42,17 @@
         <action
             android:id="@+id/action_detailsFragment_to_listFragment"
             app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTagFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.AddTagFragment"
+        android:label="fragment_add_tag"
+        tools:layout="@layout/fragment_add_tag" >
+        <action
+            android:id="@+id/action_addTagFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="tag"
+            app:argType="android.nfc.Tag" />
     </fragment>
 </navigation>

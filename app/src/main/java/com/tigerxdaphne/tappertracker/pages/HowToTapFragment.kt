@@ -17,6 +17,7 @@ import androidx.core.view.isVisible
 
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentHowToTapBinding
+import com.tigerxdaphne.tappertracker.viewBinding
 import org.koin.android.ext.android.inject
 
 private enum class HowToTapContent(
@@ -31,17 +32,14 @@ private enum class HowToTapContent(
 
 class HowToTapFragment : Fragment() {
 
-    private val nfcManager: NfcManager? by inject()
+    private val binding by viewBinding(FragmentHowToTapBinding::bind)
 
-    private var binding: FragmentHowToTapBinding? = null
     private var lastContent: HowToTapContent? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        val binding = FragmentHowToTapBinding.inflate(inflater, container, false)
-        binding.button.setOnClickListener { openNfcSettings() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        return binding.root
+        binding.button.setOnClickListener { openNfcSettings() }
     }
 
     /**
@@ -49,12 +47,9 @@ class HowToTapFragment : Fragment() {
      */
     override fun onResume() {
         super.onResume()
-        checkNfc(nfcManager!!.defaultAdapter)
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+        val nfcAdapter = requireNotNull(NfcAdapter.getDefaultAdapter(context))
+        checkNfc(nfcAdapter)
     }
 
     /**

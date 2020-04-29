@@ -2,8 +2,8 @@ package com.tigerxdaphne.tappertracker.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
-import org.threeten.bp.ZonedDateTime
 
 /**
  * Stores data about a single NFC tag.
@@ -16,7 +16,7 @@ import org.threeten.bp.ZonedDateTime
 data class TappedTag(
     @PrimaryKey
     val id: ByteArray,
-    val lastTapped: ZonedDateTime,
+    val lastTapped: LocalDate,
     val reminderDuration: Period,
     val customName: String = ""
 ) {

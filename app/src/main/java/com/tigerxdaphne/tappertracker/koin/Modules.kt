@@ -4,6 +4,7 @@ import android.nfc.NfcManager
 import androidx.core.content.getSystemService
 import androidx.room.Room
 import com.tigerxdaphne.tappertracker.db.AppDatabase
+import com.tigerxdaphne.tappertracker.db.TappedRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -16,4 +17,5 @@ val databaseModule = module {
         ).build()
     }
     single { get<AppDatabase>().tappedTagDao() }
+    single { TappedRepository(get()) }
 }

@@ -1,58 +1,58 @@
 package com.tigerxdaphne.tappertracker.pages
 
 import android.nfc.NfcAdapter
-import android.nfc.NfcManager
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ImageButton
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-
-import com.tigerxdaphne.tappertracker.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tigerxdaphne.tappertracker.databinding.FragmentListBinding
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
+import com.tigerxdaphne.tappertracker.viewBinding
+import org.threeten.bp.LocalDate
 
 class ListFragment : Fragment() {
 
-    private lateinit var viewModel: ListViewModel
+    private val navController by lazy { findNavController() }
+    private val viewModel by viewModels<ListViewModel>()
+    private val binding by viewBinding(FragmentListBinding::bind)
     private lateinit var nfcAdapter: NfcAdapter
-    private var binding: FragmentListBinding? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(context)
         // NFC not supported on the device
-        if (nfcAdapter == null) {
+        if (nfcAdapter != null) {
+            this.nfcAdapter = nfcAdapter
+        } else {
             val action = ListFragmentDirections.actionListFragmentToNoNfcFragment()
-            findNavController().navigate(action)
-
-            return null
+            navController.navigate(action)
         }
-        this.nfcAdapter = nfcAdapter
+    }
 
-        val binding = FragmentListBinding.inflate(inflater, container, false)
-        binding.addButton.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupAddButton(binding.addButton)
+        setupRecyclerView(binding.tagsList)
+    }
+
+    private fun setupAddButton(addButton: ImageButton) {
+        addButton.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToHowToTapFragment()
-            findNavController().navigate(action)
+            navController.navigate(action)
         }
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-    }
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        val adapter = TappedTagAdapter(LocalDate.now())
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.tags.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
-
 }

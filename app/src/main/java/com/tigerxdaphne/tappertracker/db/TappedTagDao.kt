@@ -1,16 +1,17 @@
 package com.tigerxdaphne.tappertracker.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TappedTagDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(tag: TappedTag)
+    @Insert
+    suspend fun add(tag: TappedTag)
+
+    @Update
+    suspend fun update(tag: TappedTag)
 
     @Query("SELECT * from tags ORDER BY lastTapped DESC")
-    suspend fun getAll(): List<TappedTag>
+    fun getAll(): Flow<List<TappedTag>>
 }

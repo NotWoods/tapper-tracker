@@ -3,4 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="highEmphasis">@color/darkHighEmphasis</color>
+    <color name="mediumEmphasis">@color/darkMediumEmphasis</color>
+    <color name="disabled">@color/darkDisabled</color>
+
+    <color name="darkHighEmphasis">#DE000000</color>
+    <color name="darkMediumEmphasis">#99000000</color>
+    <color name="darkDisabled">#61000000</color>
 </resources>

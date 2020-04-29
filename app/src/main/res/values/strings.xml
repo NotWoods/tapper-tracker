@@ -10,4 +10,12 @@
 
     <string name="no_nfc_title">NFC not supported</string>
     <string name="no_nfc_description">NFC is required for Tapper Tracker to function, but not supported by your device. Please use a phone with NFC support.</string>
+
+    <string name="last_tapped_on">Last tapped on %s</string>
+    <string name="remaining_years">%d yr. left</string>
+    <string name="remaining_months">%d mo. left</string>
+    <string name="remaining_days">%d days left</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
