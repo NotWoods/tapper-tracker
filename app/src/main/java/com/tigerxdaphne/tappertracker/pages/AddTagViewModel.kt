@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.threeten.bp.LocalDate
-import org.threeten.bp.Period
 
 class AddTagViewModel : ViewModel(), KoinComponent {
     private val repository: TappedRepository by inject()
@@ -18,7 +17,7 @@ class AddTagViewModel : ViewModel(), KoinComponent {
         val tappedTag = TappedTag(
             id = tag.id,
             lastTapped = LocalDate.now(),
-            reminderDuration = Period.ofWeeks(1)
+            reminder = LocalDate.now().plusWeeks(1)
         )
         repository.addTag(tappedTag)
     }

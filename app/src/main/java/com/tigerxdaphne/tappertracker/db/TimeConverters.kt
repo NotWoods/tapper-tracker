@@ -12,10 +12,4 @@ class TimeConverters {
 
     @TypeConverter
     fun dateToTimestamp(date: LocalDate): String = date.toString()
-
-    @TypeConverter
-    fun fromPeriodString(value: String) = Period.parse(value)
-
-    @TypeConverter
-    fun periodToString(period: Period) = period.toString()
 }

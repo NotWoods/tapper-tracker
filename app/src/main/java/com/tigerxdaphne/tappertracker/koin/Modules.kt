@@ -1,5 +1,6 @@
 package com.tigerxdaphne.tappertracker.koin
 
+import android.app.AlarmManager
 import android.nfc.NfcManager
 import androidx.core.content.getSystemService
 import androidx.room.Room
@@ -18,4 +19,8 @@ val databaseModule = module {
     }
     single { get<AppDatabase>().tappedTagDao() }
     single { TappedRepository(get()) }
+}
+
+val systemServiceModule = module {
+    single { androidContext().getSystemService<AlarmManager>()!! }
 }

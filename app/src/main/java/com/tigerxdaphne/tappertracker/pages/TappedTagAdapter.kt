@@ -40,8 +40,7 @@ class TappedTagViewHolder(
     fun bind(tag: TappedTag) {
         val resources = binding.root.resources
         val lastTapped = tag.lastTapped.format(lastUpdatedFormatter)
-        val timePassed = Period.between(tag.lastTapped, today)
-        val remainingTime = tag.reminderDuration.minus(timePassed).normalized()
+        val remainingTime = Period.between(tag.reminder, today).normalized()
 
         binding.name.text = tag.name
         binding.lastTapped.text = resources.getString(R.string.last_tapped_on, lastTapped)
