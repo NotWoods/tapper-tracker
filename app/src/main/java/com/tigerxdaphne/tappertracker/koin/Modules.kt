@@ -1,7 +1,9 @@
 package com.tigerxdaphne.tappertracker.koin
 
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.nfc.NfcManager
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import androidx.room.Room
 import com.tigerxdaphne.tappertracker.db.AppDatabase
@@ -23,4 +25,5 @@ val databaseModule = module {
 
 val systemServiceModule = module {
     single { androidContext().getSystemService<AlarmManager>()!! }
+    single { NotificationManagerCompat.from(androidContext()) }
 }
