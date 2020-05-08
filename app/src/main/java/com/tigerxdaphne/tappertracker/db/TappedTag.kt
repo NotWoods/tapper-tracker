@@ -1,24 +1,28 @@
 package com.tigerxdaphne.tappertracker.db
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.LocalDate
 
 /**
  * Stores data about a single NFC tag.
  * @property id - NFC Tag ID, corresponds to [android.nfc.Tag.getId].
- * @property lastTapped - Date when the NFC tag was last tapped.
+ * @property lastSet - Date when the NFC tag was last tapped.
  * @property reminder - When to remind the user about the tag.
  * @property customName Custom name for the tag.
  */
+@Parcelize
 @Entity(tableName = "tags")
 data class TappedTag(
     @PrimaryKey
     val id: ByteArray,
-    val lastTapped: LocalDate,
+    val lastSet: LocalDate,
     val reminder: LocalDate,
-    val customName: String = ""
-) {
+    val customName: String = "",
+    val isStopped: Boolean = false
+) : Parcelable {
 
     /**
      * Returns the name. If no custom name was specified,
@@ -34,14 +38,14 @@ data class TappedTag(
         return id.contentEquals(other.id) &&
                 reminder == other.reminder &&
                 customName == other.customName &&
-                lastTapped == other.lastTapped
+                lastSet == other.lastSet
     }
 
     override fun hashCode(): Int {
         var result = id.contentHashCode()
         result = 31 * result + reminder.hashCode()
         result = 31 * result + customName.hashCode()
-        result = 31 * result + lastTapped.hashCode()
+        result = 31 * result + lastSet.hashCode()
         return result
     }
 }

@@ -16,7 +16,7 @@ interface TappedTagDao {
     @Query("SELECT * from tags WHERE id = :id LIMIT 1")
     suspend fun getTag(id: ByteArray): TappedTag?
 
-    @Query("SELECT * from tags ORDER BY lastTapped DESC")
+    @Query("SELECT * from tags ORDER BY lastSet DESC")
     fun getAll(): Flow<List<TappedTag>>
 
     @Query("SELECT reminder from tags WHERE reminder >= :today ORDER BY reminder ASC LIMIT 1")

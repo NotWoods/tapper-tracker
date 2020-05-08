@@ -16,6 +16,11 @@
     <string name="remaining_months">%d mo. left</string>
     <string name="remaining_days">%d days left</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close">Close</string>
+    <string name="pause">Stop</string>
+    <string name="pause_description">Stop reminder timer, yo</string>
+    <string name="reset">Reset</string>
+    <string name="reset_description">Reset reminder timer, yo</string>
+    <string name="edit">Edit</string>
+    <string name="edit_description">Edit reminder timer, yo</string>
 </resources>

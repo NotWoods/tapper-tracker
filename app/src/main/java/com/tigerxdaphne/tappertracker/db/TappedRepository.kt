@@ -9,6 +9,10 @@ class TappedRepository(
         tappedTagDao.add(tag)
     }
 
+    suspend fun updateTag(tag: TappedTag) {
+        tappedTagDao.update(tag)
+    }
+
     suspend fun getTag(id: ByteArray) = tappedTagDao.getTag(id)
 
     fun getAllTags() = tappedTagDao.getAll()

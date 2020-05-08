@@ -10,7 +10,6 @@ import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
-import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -39,7 +38,7 @@ class TappedTagViewHolder(
 
     fun bind(tag: TappedTag) {
         val resources = binding.root.resources
-        val lastTapped = tag.lastTapped.format(lastUpdatedFormatter)
+        val lastTapped = tag.lastSet.format(lastUpdatedFormatter)
         val remainingTime = Period.between(tag.reminder, today).normalized()
 
         binding.name.text = tag.name

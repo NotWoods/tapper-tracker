@@ -43,16 +43,22 @@
             android:id="@+id/action_detailsFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addTagFragment"
-        android:name="com.tigerxdaphne.tappertracker.pages.AddTagFragment"
-        android:label="fragment_add_tag"
-        tools:layout="@layout/fragment_add_tag" >
+    <dialog
+        android:id="@+id/newTagTappedFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.NewTagTappedFragment"
+        android:label="fragment_new_tag_tapped"
+        tools:layout="@layout/fragment_new_tag_tapped" >
         <action
             android:id="@+id/action_addTagFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <argument
             android:name="tag"
             app:argType="android.nfc.Tag" />
-    </fragment>
+    </dialog>
+    <dialog
+        android:id="@+id/existingTagTappedFragment">
+        <argument
+            android:name="tag"
+            app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
+    </dialog>
 </navigation>

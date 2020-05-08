@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 
@@ -13,10 +14,10 @@ import com.tigerxdaphne.tappertracker.R
 /**
  * A simple [Fragment] subclass.
  */
-class AddTagFragment : Fragment() {
+class NewTagTappedFragment : DialogFragment() {
 
     private val args: AddTagFragmentArgs by navArgs()
-    private val viewModel: AddTagViewModel by viewModels()
+    private val viewModel: NewTagTappedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +26,7 @@ class AddTagFragment : Fragment() {
         // Inflate the layout for this fragment
         viewModel.onNewTag(args.tag)
 
-        return inflater.inflate(R.layout.fragment_add_tag, container, false)
+        return inflater.inflate(R.layout.fragment_new_tag_tapped, container, false)
     }
 
     // Read NFC

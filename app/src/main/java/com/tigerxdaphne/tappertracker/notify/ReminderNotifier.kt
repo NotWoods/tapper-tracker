@@ -46,11 +46,9 @@ class ReminderNotifier : KoinComponent {
         val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setContentTitle("Don't forget about your tags today!")
             .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO change icon
-            .setContentText(tagsDueToday.joinToString(",") { it.name })
+            .setContentText(tagsDueToday.joinToString(", ") { it.name })
             .setAutoCancel(true)
             .build()
-
-        // TODO bundle many notifications
 
         notificationManager.notify(today.toNotificationId(), notification)
     }

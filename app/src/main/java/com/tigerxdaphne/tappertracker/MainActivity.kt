@@ -4,7 +4,6 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.tigerxdaphne.tappertracker.pages.AddTagFragmentArgs
 
@@ -29,6 +28,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun onTagDiscovered(tag: Tag) {
-        navController.navigate(R.id.addTagFragment, AddTagFragmentArgs(tag).toBundle())
+        navController.navigate(R.id.newTagTappedFragment, AddTagFragmentArgs(tag).toBundle())
     }
 }

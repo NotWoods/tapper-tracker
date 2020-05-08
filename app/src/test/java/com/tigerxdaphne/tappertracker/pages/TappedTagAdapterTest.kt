@@ -34,7 +34,7 @@ class TappedTagAdapterTest {
     fun bindsCustomName() {
         val tag = TappedTag(
             id = "123".toByteArray(),
-            lastTapped = janFirst,
+            lastSet = janFirst,
             reminderDuration = Period.ZERO,
             customName = "Battery-powered device"
         )
@@ -47,7 +47,7 @@ class TappedTagAdapterTest {
     fun bindsIdAsFallbackName() {
         val tag = TappedTag(
             id = "123".toByteArray(),
-            lastTapped = janFirst,
+            lastSet = janFirst,
             reminderDuration = Period.ZERO,
             customName = "   "
         )
@@ -60,7 +60,7 @@ class TappedTagAdapterTest {
     fun bindsLastTapped() {
         val tag = TappedTag(
             id = "123".toByteArray(),
-            lastTapped = janFirst,
+            lastSet = janFirst,
             reminderDuration = Period.ZERO
         )
         TappedTagViewHolder(binding, janFirst, lastUpdatedFormatter).bind(tag)
