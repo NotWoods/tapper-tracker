@@ -1,12 +1,9 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.tapped
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.tigerxdaphne.tappertracker.Event
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import kotlinx.coroutines.launch
@@ -40,6 +37,8 @@ class ExistingTagTappedViewModel(
 
     class Factory(private val args: ExistingTagTappedFragmentArgs) : ViewModelProvider.Factory {
         @Suppress("Unchecked_Cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T = ExistingTagTappedViewModel(args.tag) as T
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T = ExistingTagTappedViewModel(
+            args.tag
+        ) as T
     }
 }

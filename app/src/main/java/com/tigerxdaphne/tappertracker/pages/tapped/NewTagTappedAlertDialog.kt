@@ -1,20 +1,12 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.tapped
 
 import android.content.Context
-import android.content.DialogInterface
 import android.nfc.Tag
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTag
-import com.tigerxdaphne.tappertracker.viewBinding
+import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
 import org.threeten.bp.LocalDate
 
 /**

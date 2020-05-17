@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.tapped
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,14 +12,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentExistingTagTappedBinding
-import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragmentDirections.Companion.actionExistingTagTappedFragmentToEditFragment
+import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentDirections.Companion.actionExistingTagTappedFragmentToEditFragment
 import com.tigerxdaphne.tappertracker.viewBinding
 
 class ExistingTagTappedFragment : DialogFragment() {
 
     private val navController by lazy { findNavController() }
     private val args by navArgs<ExistingTagTappedFragmentArgs>()
-    private val viewModel by viewModels<ExistingTagTappedViewModel> { ExistingTagTappedViewModel.Factory(args) }
+    private val viewModel by viewModels<ExistingTagTappedViewModel> {
+        ExistingTagTappedViewModel.Factory(args)
+    }
     private var binding by viewBinding<FragmentExistingTagTappedBinding>()
 
     override fun onCreateView(

@@ -25,7 +25,7 @@
         tools:layout="@layout/fragment_no_nfc" />
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.tigerxdaphne.tappertracker.pages.ListFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -39,7 +39,7 @@
             app:destination="@id/noNfcFragment" />
     </fragment>
     <fragment android:id="@+id/editFragment"
-        android:name="com.tigerxdaphne.tappertracker.pages.EditFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.edit.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit">
         <argument
@@ -54,7 +54,7 @@
     </fragment>
     <dialog
         android:id="@+id/existingTagTappedFragment"
-        android:name="com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragment"
         android:label="fragment_existing_tag_tapped"
         tools:layout="@layout/fragment_existing_tag_tapped">
         <argument

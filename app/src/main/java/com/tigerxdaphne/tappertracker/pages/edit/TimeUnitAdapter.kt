@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.edit
 
 import android.content.Context
 import android.widget.ArrayAdapter
@@ -16,11 +16,15 @@ class TimeUnitAdapter(
 ) : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1) {
 
     init {
+        // We'll manage notifyDataSetChanged calls ourselves
         setNotifyOnChange(false)
     }
 
-    fun setPluralFor(quantity: Long?) {
-        val strings = timeUnits.map {
+    /**
+     * Update
+     */
+    fun setPluralFor(quantity: Long?, chronoUnits: List<ChronoUnit>) {
+        val strings = chronoUnits.map {
             context.resources.getQuantityString(getResourceFor(it), quantity?.toInt() ?: 0)
         }
 
@@ -38,13 +42,3 @@ class TimeUnitAdapter(
         else -> throw Exception("$timeUnit not supported")
     }
 }
-
-/**
- * List of chrono units presented to the user as choices in the [EditFragment].
- */
-val timeUnits = listOf(
-    ChronoUnit.DAYS,
-    ChronoUnit.WEEKS,
-    ChronoUnit.MONTHS,
-    ChronoUnit.YEARS
-)

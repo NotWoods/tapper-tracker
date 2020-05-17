@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.list
 
 import android.nfc.NfcAdapter
 import android.os.Bundle
@@ -31,7 +31,8 @@ class ListFragment : Fragment() {
         if (nfcAdapter != null) {
             this.nfcAdapter = nfcAdapter
         } else {
-            val action = ListFragmentDirections.actionListFragmentToNoNfcFragment()
+            val action =
+                ListFragmentDirections.actionListFragmentToNoNfcFragment()
             navController.navigate(action)
         }
     }

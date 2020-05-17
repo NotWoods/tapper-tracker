@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragmentArgs
-import com.tigerxdaphne.tappertracker.pages.NewTagTappedAlertDialog
+import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentArgs
+import com.tigerxdaphne.tappertracker.pages.tapped.NewTagTappedAlertDialog
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -44,7 +44,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
                 val args = ExistingTagTappedFragmentArgs(tappedTag)
                 navController.navigate(R.id.existingTagTappedFragment, args.toBundle())
             } else {
-                NewTagTappedAlertDialog(this@MainActivity, navController, tag).show()
+                NewTagTappedAlertDialog(
+                    this@MainActivity,
+                    navController,
+                    tag
+                ).show()
             }
         }
     }

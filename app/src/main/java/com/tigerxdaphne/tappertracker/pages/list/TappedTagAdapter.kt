@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,7 +15,9 @@ import org.threeten.bp.format.FormatStyle
 
 class TappedTagAdapter(
     private val today: LocalDate
-) : ListAdapter<TappedTag, TappedTagViewHolder>(TappedTagDiffer) {
+) : ListAdapter<TappedTag, TappedTagViewHolder>(
+    TappedTagDiffer
+) {
 
     private val lastUpdatedFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 

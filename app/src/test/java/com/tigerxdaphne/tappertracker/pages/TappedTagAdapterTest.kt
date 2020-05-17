@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.tigerxdaphne.tappertracker.MainActivity
 import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
 import com.tigerxdaphne.tappertracker.db.TappedTag
+import com.tigerxdaphne.tappertracker.pages.list.TappedTagViewHolder
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
@@ -38,7 +39,11 @@ class TappedTagAdapterTest {
             reminderDuration = Period.ZERO,
             customName = "Battery-powered device"
         )
-        TappedTagViewHolder(binding, janFirst, lastUpdatedFormatter).bind(tag)
+        TappedTagViewHolder(
+            binding,
+            janFirst,
+            lastUpdatedFormatter
+        ).bind(tag)
 
         verify { binding.name.text = "Battery-powered device" }
     }
@@ -51,7 +56,11 @@ class TappedTagAdapterTest {
             reminderDuration = Period.ZERO,
             customName = "   "
         )
-        TappedTagViewHolder(binding, janFirst, lastUpdatedFormatter).bind(tag)
+        TappedTagViewHolder(
+            binding,
+            janFirst,
+            lastUpdatedFormatter
+        ).bind(tag)
 
         verify { binding.name.text = "123" }
     }
@@ -63,7 +72,11 @@ class TappedTagAdapterTest {
             lastSet = janFirst,
             reminderDuration = Period.ZERO
         )
-        TappedTagViewHolder(binding, janFirst, lastUpdatedFormatter).bind(tag)
+        TappedTagViewHolder(
+            binding,
+            janFirst,
+            lastUpdatedFormatter
+        ).bind(tag)
 
         verify { binding.lastTapped.text = "Last tapped on Jan 1, 2020" }
     }

@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.pages
+package com.tigerxdaphne.tappertracker.pages.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

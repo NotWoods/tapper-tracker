@@ -6,7 +6,7 @@
     android:minWidth="@dimen/dialog_width"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".pages.ExistingTagTappedFragment">
+    tools:context=".pages.tapped.ExistingTagTappedFragment">
 
     <TextView
         android:id="@+id/dialogTitle"
