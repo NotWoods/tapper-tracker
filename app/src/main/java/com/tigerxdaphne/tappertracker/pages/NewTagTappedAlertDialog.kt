@@ -42,7 +42,8 @@ class NewTagTappedAlertDialog(
                 reminder = today.plusWeeks(1)
             )
 
-            navController.navigate(R.id.editFragment, EditFragmentArgs(newTappedTag).toBundle())
+            val args = EditFragmentArgs(newTappedTag, isNew = true)
+            navController.navigate(R.id.editFragment, args.toBundle())
             dialog.dismiss()
         }
     }

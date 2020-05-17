@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentExistingTagTappedBinding
+import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragmentDirections.Companion.actionExistingTagTappedFragmentToEditFragment
 import com.tigerxdaphne.tappertracker.viewBinding
 
 class ExistingTagTappedFragment : DialogFragment() {
@@ -44,7 +45,7 @@ class ExistingTagTappedFragment : DialogFragment() {
         }
 
         binding.edit.setOnClickListener {
-            val action = ExistingTagTappedFragmentDirections.actionExistingTagTappedFragmentToEditFragment(args.tag)
+            val action = actionExistingTagTappedFragmentToEditFragment(args.tag, isNew = false)
             navController.navigate(action)
         }
 

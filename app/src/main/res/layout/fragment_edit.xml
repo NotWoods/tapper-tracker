@@ -32,7 +32,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/tag_name"
         app:layout_constraintBottom_toTopOf="@id/reminderLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/iconGuideline"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
-        android:text="Remind me in"
+        android:text="@string/remind_in"
         android:labelFor="@id/reminderDuration"
         app:layout_constraintBottom_toTopOf="@id/reminderDuration"
         app:layout_constraintEnd_toEndOf="@id/name"
@@ -117,7 +117,7 @@
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="on"
+        android:text="@string/on_date"
         android:labelFor="@id/date"
         app:layout_constraintBottom_toBottomOf="@id/date"
         app:layout_constraintEnd_toStartOf="@id/date"
@@ -140,7 +140,7 @@
             android:id="@+id/dateField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
+            android:inputType="none"
             tools:text="March 29, 2020" />
 
     </com.google.android.material.textfield.TextInputLayout>

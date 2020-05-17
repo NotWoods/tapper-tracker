@@ -45,8 +45,11 @@
         <argument
             android:name="tag"
             app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
         <action
-            android:id="@+id/action_detailsFragment_to_listFragment"
+            android:id="@+id/action_editFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
     <dialog

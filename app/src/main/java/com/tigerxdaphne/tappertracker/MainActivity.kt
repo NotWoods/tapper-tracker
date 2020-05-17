@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
         lifecycleScope.launch {
             val tappedTag = repository.getTag(tag.id)
             if (tappedTag != null) {
-                navController.navigate(R.id.existingTagTappedFragment, ExistingTagTappedFragmentArgs(tappedTag).toBundle())
+                val args = ExistingTagTappedFragmentArgs(tappedTag)
+                navController.navigate(R.id.existingTagTappedFragment, args.toBundle())
             } else {
                 NewTagTappedAlertDialog(this@MainActivity, navController, tag).show()
             }

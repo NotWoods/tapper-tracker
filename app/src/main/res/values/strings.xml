@@ -47,4 +47,9 @@
     <string name="new_tag_title">New tag tapped</string>
     <string name="new_tag_message">Save this tag to begin tracking.</string>
     <string name="save">Save</string>
+
+    <string name="tag_name">Name</string>
+    <string name="tag_name_blank_error">Name cannot be blank</string>
+    <string name="remind_in">Remind me in</string>
+    <string name="on_date">on</string>
 </resources>

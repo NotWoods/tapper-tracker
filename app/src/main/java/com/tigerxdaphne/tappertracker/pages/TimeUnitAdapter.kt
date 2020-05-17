@@ -7,6 +7,10 @@ import com.tigerxdaphne.tappertracker.R
 import org.threeten.bp.temporal.ChronoUnit
 import java.lang.Exception
 
+/**
+ * Adapter for [android.widget.AutoCompleteTextView] that displays chrono units.
+ * It can be updated to reflect the correct plural form.
+ */
 class TimeUnitAdapter(
     context: Context
 ) : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1) {
@@ -35,6 +39,9 @@ class TimeUnitAdapter(
     }
 }
 
+/**
+ * List of chrono units presented to the user as choices in the [EditFragment].
+ */
 val timeUnits = listOf(
     ChronoUnit.DAYS,
     ChronoUnit.WEEKS,
