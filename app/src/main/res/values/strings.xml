@@ -43,4 +43,8 @@
     <string name="edit_description">Edit reminder timer, yo</string>
 
     <string name="stopped">Tracking stopped</string>
+
+    <string name="new_tag_title">New tag tapped</string>
+    <string name="new_tag_message">Save this tag to begin tracking.</string>
+    <string name="save">Save</string>
 </resources>

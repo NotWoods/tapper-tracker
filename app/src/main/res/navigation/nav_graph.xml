@@ -50,18 +50,6 @@
             app:destination="@id/listFragment" />
     </fragment>
     <dialog
-        android:id="@+id/newTagTappedFragment"
-        android:name="com.tigerxdaphne.tappertracker.pages.NewTagTappedFragment"
-        android:label="fragment_new_tag_tapped"
-        tools:layout="@layout/fragment_new_tag_tapped">
-        <action
-            android:id="@+id/action_addTagFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <argument
-            android:name="tag"
-            app:argType="android.nfc.Tag" />
-    </dialog>
-    <dialog
         android:id="@+id/existingTagTappedFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragment"
         android:label="fragment_existing_tag_tapped"

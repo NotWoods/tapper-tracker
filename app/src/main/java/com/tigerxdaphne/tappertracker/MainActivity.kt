@@ -4,13 +4,11 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragment
 import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragmentArgs
-import com.tigerxdaphne.tappertracker.pages.NewTagTappedFragmentArgs
+import com.tigerxdaphne.tappertracker.pages.NewTagTappedAlertDialog
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
             if (tappedTag != null) {
                 navController.navigate(R.id.existingTagTappedFragment, ExistingTagTappedFragmentArgs(tappedTag).toBundle())
             } else {
-                navController.navigate(R.id.newTagTappedFragment, NewTagTappedFragmentArgs(tag).toBundle())
+                NewTagTappedAlertDialog(this@MainActivity, navController, tag).show()
             }
         }
     }

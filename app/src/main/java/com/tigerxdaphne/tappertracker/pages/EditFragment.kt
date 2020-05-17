@@ -4,20 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
+import org.threeten.bp.LocalDate
 
 class EditFragment : Fragment() {
 
     private val args by navArgs<EditFragmentArgs>()
-    private val viewModel by viewModels<EditViewModel>()
     private var binding by viewBinding<FragmentEditBinding>()
-    private lateinit var reminderUnitAdapter: ArrayAdapter<String>
+    private lateinit var reminderUnitAdapter: TimeUnitAdapter
+
+    private val dateFieldFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,26 +28,47 @@ class EditFragment : Fragment() {
         val binding = FragmentEditBinding.inflate(inflater, container, false)
         this.binding = binding
 
-        reminderUnitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1)
-        reminderUnitAdapter.setNotifyOnChange(false)
+        reminderUnitAdapter = TimeUnitAdapter(requireContext())
         binding.reminderUnitField.setAdapter(reminderUnitAdapter)
 
         binding.nameField.setText(args.tag.customName)
 
+        val date = args.tag.reminder.format(dateFieldFormatter)
+        binding.dateField.setText(date)
+        onReminderDateChanged(date)
+
+        binding.reminderDurationField.doAfterTextChanged {
+            val durationLong = it.toString().toLongOrNull()
+            reminderUnitAdapter.setPluralFor(durationLong)
+            onReminderPeriodChanged(
+                duration = durationLong,
+                unitPosition = binding.reminderUnitField.listSelection
+            )
+        }
+        binding.reminderUnitField.setOnItemClickListener { _, _, position, _ ->
+            onReminderPeriodChanged(
+                duration = binding.reminderDurationField.text?.toString()?.toLongOrNull(),
+                unitPosition = position
+            )
+        }
+        binding.dateField.doAfterTextChanged {
+            onReminderDateChanged(it.toString())
+        }
+
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun onReminderPeriodChanged(duration: Long?, unitPosition: Int) {
+        duration ?: return
+        val timeUnit = timeUnits.getOrNull(unitPosition) ?: return
+        val date = args.tag.lastSet.plus(duration, timeUnit)
 
-        viewModel.reminderDuration.observe(viewLifecycleOwner) { reminderDuration ->
-            val strings = viewModel.timeUnits.map {
-                resources.getQuantityString(it.resId, reminderDuration)
-            }
+        binding?.dateField?.setText(date.format(dateFieldFormatter))
+    }
 
-            reminderUnitAdapter.clear()
-            reminderUnitAdapter.addAll(strings)
-            reminderUnitAdapter.notifyDataSetChanged()
-        }
+    private fun onReminderDateChanged(dateText: String) {
+        val date = LocalDate.parse(dateText, dateFieldFormatter)
+
+        // TODO update duration and unit
     }
 }
