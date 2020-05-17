@@ -4,15 +4,27 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.tigerxdaphne.tappertracker.pages.AddTagFragmentArgs
+import com.tigerxdaphne.tappertracker.db.TappedRepository
+import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragment
+import com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragmentArgs
+import com.tigerxdaphne.tappertracker.pages.NewTagTappedFragmentArgs
+import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+    private val repository: TappedRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+
         setupNfc()
     }
 
@@ -28,6 +40,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun onTagDiscovered(tag: Tag) {
-        navController.navigate(R.id.newTagTappedFragment, AddTagFragmentArgs(tag).toBundle())
+        lifecycleScope.launch {
+            val tappedTag = repository.getTag(tag.id)
+            if (tappedTag != null) {
+                navController.navigate(R.id.existingTagTappedFragment, ExistingTagTappedFragmentArgs(tappedTag).toBundle())
+            } else {
+                navController.navigate(R.id.newTagTappedFragment, NewTagTappedFragmentArgs(tag).toBundle())
+            }
+        }
     }
 }

@@ -16,11 +16,31 @@
     <string name="remaining_months">%d mo. left</string>
     <string name="remaining_days">%d days left</string>
 
+    <plurals name="time_unit_year">
+        <item quantity="one">year</item>
+        <item quantity="other">years</item>
+    </plurals>
+    <plurals name="time_unit_month">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+    <plurals name="time_unit_week">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+    <plurals name="time_unit_day">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+
     <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
     <string name="pause">Stop</string>
     <string name="pause_description">Stop reminder timer, yo</string>
     <string name="reset">Reset</string>
     <string name="reset_description">Reset reminder timer, yo</string>
     <string name="edit">Edit</string>
     <string name="edit_description">Edit reminder timer, yo</string>
+
+    <string name="stopped">Tracking stopped</string>
 </resources>

@@ -2,7 +2,9 @@ package com.tigerxdaphne.tappertracker.pages
 
 import android.nfc.NfcAdapter
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +20,7 @@ class ListFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
     private val viewModel by viewModels<ListViewModel>()
-    private val binding by viewBinding(FragmentListBinding::bind)
+    private var binding by viewBinding<FragmentListBinding>()
     private lateinit var nfcAdapter: NfcAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +36,18 @@ class ListFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentListBinding.inflate(inflater, container, false)
+        this.binding = binding
 
         setupAddButton(binding.addButton)
         setupRecyclerView(binding.tagsList)
+
+        return binding.root
     }
 
     private fun setupAddButton(addButton: ImageButton) {

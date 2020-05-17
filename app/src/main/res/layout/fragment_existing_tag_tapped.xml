@@ -2,22 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/dialog_width"
+    android:minWidth="@dimen/dialog_width"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".pages.ExistingTagTappedFragment">
 
-    <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:contentDescription="@string/close"
-        android:src="@drawable/ic_close" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/dialogTitle"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingTop="20dp"
+        android:layout_marginHorizontal="24dp"
+        android:minHeight="64dp"
+        tools:text="GPS Battery" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
         android:clickable="true"
         android:focusable="true">
 
@@ -28,6 +34,7 @@
             android:layout_marginEnd="16dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_reset"
+            android:tint="@color/solid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/resetTitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,52 +65,57 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
         android:clickable="true"
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/pauseIcon"
+            android:id="@+id/stopIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_stop"
+            android:tint="@color/solid"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/pauseTitle"
+            app:layout_constraintEnd_toStartOf="@id/stopTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/pauseTitle"
+            android:id="@+id/stopTitle"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/pause"
-            app:layout_constraintBottom_toTopOf="@id/pauseDescription"
+            app:layout_constraintBottom_toTopOf="@id/stopDescription"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/pauseIcon"
+            app:layout_constraintStart_toEndOf="@id/stopIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/pauseDescription"
+            android:id="@+id/stopDescription"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/pause_description"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/pauseTitle"
-            app:layout_constraintStart_toStartOf="@id/pauseTitle"
-            app:layout_constraintTop_toBottomOf="@id/pauseTitle" />
+            app:layout_constraintEnd_toEndOf="@id/stopTitle"
+            app:layout_constraintStart_toStartOf="@id/stopTitle"
+            app:layout_constraintTop_toBottomOf="@id/stopTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
         android:clickable="true"
         android:focusable="true">
 
@@ -114,6 +126,7 @@
             android:layout_marginEnd="16dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_edit"
+            android:tint="@color/solid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/editTitle"
             app:layout_constraintStart_toStartOf="parent"

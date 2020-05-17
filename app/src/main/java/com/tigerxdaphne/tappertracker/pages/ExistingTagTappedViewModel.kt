@@ -4,6 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.tigerxdaphne.tappertracker.Event
 import com.tigerxdaphne.tappertracker.db.TappedRepository
@@ -19,13 +20,9 @@ class ExistingTagTappedViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val repository: TappedRepository by inject()
-    private val _dismiss = MutableLiveData<DismissEvent>()
-
-    val dismiss: LiveData<DismissEvent> get() = _dismiss
 
     fun stop() = viewModelScope.launch {
         repository.updateTag(existingTag.copy(lastSet = today(), isStopped = true))
-        _dismiss.postValue(DismissEvent())
     }
 
     fun reset() = viewModelScope.launch {
@@ -36,11 +33,13 @@ class ExistingTagTappedViewModel(
             isStopped = false
         )
         repository.updateTag(newTag)
-        _dismiss.postValue(DismissEvent())
     }
 
     @VisibleForTesting
     internal fun today() = LocalDate.now()
 
-    class DismissEvent : Event<Unit>(Unit)
+    class Factory(private val args: ExistingTagTappedFragmentArgs) : ViewModelProvider.Factory {
+        @Suppress("Unchecked_Cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T = ExistingTagTappedViewModel(args.tag) as T
+    }
 }

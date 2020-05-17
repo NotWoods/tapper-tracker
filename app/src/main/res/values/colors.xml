@@ -4,11 +4,17 @@
     <color name="colorPrimaryDark">#6f627b</color>
     <color name="colorAccent">#7696b4</color>
 
-    <color name="highEmphasis">@color/darkHighEmphasis</color>
-    <color name="mediumEmphasis">@color/darkMediumEmphasis</color>
-    <color name="disabled">@color/darkDisabled</color>
+    <color name="solid">@color/lightSolid</color>
+    <color name="highEmphasis">@color/lightHighEmphasis</color>
+    <color name="mediumEmphasis">@color/lightMediumEmphasis</color>
+    <color name="disabled">@color/lightDisabled</color>
 
+    <color name="darkSolid">#000000</color>
     <color name="darkHighEmphasis">#DE000000</color>
     <color name="darkMediumEmphasis">#99000000</color>
     <color name="darkDisabled">#61000000</color>
+    <color name="lightSolid">#FFFFFF</color>
+    <color name="lightHighEmphasis">#DEFFFFFF</color>
+    <color name="lightMediumEmphasis">#99FFFFFF</color>
+    <color name="lightDisabled">#61FFFFFF</color>
 </resources>

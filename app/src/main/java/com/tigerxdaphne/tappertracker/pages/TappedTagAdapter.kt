@@ -44,6 +44,7 @@ class TappedTagViewHolder(
         binding.name.text = tag.name
         binding.lastTapped.text = resources.getString(R.string.last_tapped_on, lastTapped)
         binding.duration.text = when {
+            tag.isStopped -> resources.getString(R.string.stopped)
             remainingTime.years > 0 -> resources.getString(R.string.remaining_years, remainingTime.years)
             remainingTime.months > 0 -> resources.getString(R.string.remaining_months, remainingTime.months)
             else -> resources.getString(R.string.remaining_days, remainingTime.days)

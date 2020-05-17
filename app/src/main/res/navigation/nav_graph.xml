@@ -32,13 +32,19 @@
             android:id="@+id/action_listFragment_to_howToTapFragment"
             app:destination="@id/howToTapFragment" />
         <action
-            android:id="@+id/action_listFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_listFragment_to_editFragment"
+            app:destination="@id/editFragment" />
         <action
             android:id="@+id/action_listFragment_to_noNfcFragment"
             app:destination="@id/noNfcFragment" />
     </fragment>
-    <fragment android:id="@+id/detailsFragment" >
+    <fragment android:id="@+id/editFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit">
+        <argument
+            android:name="tag"
+            app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
         <action
             android:id="@+id/action_detailsFragment_to_listFragment"
             app:destination="@id/listFragment" />
@@ -47,7 +53,7 @@
         android:id="@+id/newTagTappedFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.NewTagTappedFragment"
         android:label="fragment_new_tag_tapped"
-        tools:layout="@layout/fragment_new_tag_tapped" >
+        tools:layout="@layout/fragment_new_tag_tapped">
         <action
             android:id="@+id/action_addTagFragment_to_listFragment"
             app:destination="@id/listFragment" />
@@ -56,9 +62,15 @@
             app:argType="android.nfc.Tag" />
     </dialog>
     <dialog
-        android:id="@+id/existingTagTappedFragment">
+        android:id="@+id/existingTagTappedFragment"
+        android:name="com.tigerxdaphne.tappertracker.pages.ExistingTagTappedFragment"
+        android:label="fragment_existing_tag_tapped"
+        tools:layout="@layout/fragment_existing_tag_tapped">
         <argument
             android:name="tag"
             app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
+        <action
+            android:id="@+id/action_existingTagTappedFragment_to_editFragment"
+            app:destination="@id/editFragment" />
     </dialog>
 </navigation>

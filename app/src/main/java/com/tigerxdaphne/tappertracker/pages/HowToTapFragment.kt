@@ -32,14 +32,21 @@ private enum class HowToTapContent(
 
 class HowToTapFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentHowToTapBinding::bind)
+    private var binding by viewBinding<FragmentHowToTapBinding>()
 
     private var lastContent: HowToTapContent? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentHowToTapBinding.inflate(inflater, container, false)
+        this.binding = binding
 
         binding.button.setOnClickListener { openNfcSettings() }
+
+        return binding.root
     }
 
     /**
@@ -71,7 +78,7 @@ class HowToTapFragment : Fragment() {
      */
     private fun displayContent(content: HowToTapContent) {
         if (content != lastContent) {
-            val binding = binding!!
+            val binding = binding ?: return
             binding.icon.setImageResource(content.icon)
             binding.title.text = getString(content.title)
             binding.description.text = getString(content.description)
