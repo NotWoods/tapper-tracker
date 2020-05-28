@@ -33,6 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/tag_name"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/reminderLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/iconGuideline"

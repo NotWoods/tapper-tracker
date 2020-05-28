@@ -26,6 +26,9 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
 
+/**
+ * Fragment used to edit properties on a TappedTag.
+ */
 class EditFragment : Fragment() {
 
     private val args by navArgs<EditFragmentArgs>()
@@ -36,6 +39,9 @@ class EditFragment : Fragment() {
     private lateinit var reminderUnitAdapter: TimeUnitAdapter
     private lateinit var confirmOnExit: OnBackPressedCallback
 
+    /**
+     * Sets up confirm-on-exit behaviour for the fragment.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -44,21 +50,31 @@ class EditFragment : Fragment() {
             owner = this,
             enabled = false
         ) {
-            ConfirmationAlertDialog(
-                requireContext(),
-                args
-            ) { _, which ->
+            val binding = binding
+            if (binding == null) {
+                // No context, if we got here somehow just exit
+                findNavController().navigateUp()
+                return@addCallback
+            }
+
+            val context = binding.root.context
+            val customName = binding.nameField.text.toString()
+
+            ConfirmationAlertDialog(context, customName, args.isNew) { _, which ->
                 when (which) {
+                    // Trigger save
                     BUTTON_POSITIVE -> viewLifecycleOwner.lifecycleScope.launch { saveTag() }
-                    BUTTON_NEGATIVE -> {
-                        // Exit without saving
-                        findNavController().navigateUp()
-                    }
+                    // Exit without saving
+                    BUTTON_NEGATIVE -> findNavController().navigateUp()
+                    // Cancel does nothing
                 }
             }.show()
         }
     }
 
+    /**
+     * Inflate the view and set up click/text change listeners.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,11 +86,12 @@ class EditFragment : Fragment() {
         binding.reminderUnitField.setAdapter(reminderUnitAdapter)
 
         binding.nameField.setText(args.tag.customName)
-        binding.nameField.doAfterTextChanged {
-            confirmOnExit.isEnabled = true
-        }
         if (args.isNew) {
             binding.nameField.requestFocus()
+        }
+        binding.nameField.doAfterTextChanged { text ->
+            confirmOnExit.isEnabled = true
+            if (!text.isNullOrBlank()) binding!!.name.error = null
         }
 
         val days = viewModel.daysUntil(args.tag.reminder).toLong()
@@ -109,6 +126,9 @@ class EditFragment : Fragment() {
         inflater.inflate(R.menu.menu_edit, menu)
     }
 
+    /**
+     * Handle the Up and Save menu buttons.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -161,12 +181,13 @@ class EditFragment : Fragment() {
         datePicker.show(parentFragmentManager, datePicker.toString())
     }
 
+    /**
+     * Validate the text fields then save the tag.
+     */
     private suspend fun saveTag() {
         val customName = binding!!.nameField.text.toString()
         if (customName.isBlank()) {
-            Snackbar
-                .make(requireView(), R.string.tag_name_blank_error, Snackbar.LENGTH_SHORT)
-                .show()
+            binding!!.name.error = getString(R.string.tag_name_blank_error)
             return
         }
 

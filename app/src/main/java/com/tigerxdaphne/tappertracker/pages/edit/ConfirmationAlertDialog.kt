@@ -9,20 +9,19 @@ import com.tigerxdaphne.tappertracker.db.TappedTag
 import org.threeten.bp.LocalDate
 
 /**
- * Builds an alert dialog to display when a new tag is tapped.
- * Call [show] to display the alert.
+ * Builds an alert dialog that should be displayed when exit or back is pressed.
+ * Asks the user to confirm they want to exit, or trigger save first.
  */
 class ConfirmationAlertDialog(
     context: Context,
-    args: EditFragmentArgs,
+    customName: String,
+    isNew: Boolean,
     onButtonClick: (DialogInterface, which: Int) -> Unit
 ) : MaterialAlertDialogBuilder(context) {
 
     init {
-        val customName = args.tag.customName
-
         setTitle(context.getString(R.string.exit_no_save_title))
-        setMessage(if (args.isNew) {
+        setMessage(if (isNew) {
             if (customName.isBlank()) {
                 context.getString(R.string.exit_no_save_new_tag_no_name_message)
             } else {
