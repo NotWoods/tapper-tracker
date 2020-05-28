@@ -37,13 +37,10 @@ class EditViewModel(
     )
 
     var reminderDate: LocalDate = originalTag.reminder
+    val timeZone: ZoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
 
     fun buildDatePicker(): MaterialDatePicker<Long> {
-        val minDay = originalTag.lastSet
-            .plusDays(1)
-            .atStartOfDay(ZoneId.ofOffset("UTC", ZoneOffset.UTC))
-            .toInstant()
-            .toEpochMilli()
+        val minDay = originalTag.lastSet.plusDays(1).toEpochMilli()
 
         val constraints = CalendarConstraints.Builder()
             .setStart(minDay)
@@ -52,6 +49,7 @@ class EditViewModel(
 
         return MaterialDatePicker.Builder.datePicker()
             .setCalendarConstraints(constraints)
+            .setSelection(reminderDate.toEpochMilli())
             .build()
     }
 
@@ -73,6 +71,8 @@ class EditViewModel(
             repository.updateTag(editedTag)
         }
     }
+
+    private fun LocalDate.toEpochMilli() = atStartOfDay(timeZone).toInstant().toEpochMilli()
 
     class Factory(private val args: EditFragmentArgs) : ViewModelProvider.Factory {
         @Suppress("Unchecked_Cast")

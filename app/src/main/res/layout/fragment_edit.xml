@@ -108,7 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            tools:text="weeks" />
+            tools:text="weeks"
+            android:editable="false"
+            tools:ignore="Deprecated" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +143,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="false"
+            android:focusable="true"
+            android:editable="false"
+            tools:ignore="Deprecated"
             android:inputType="none"
             tools:text="March 29, 2020" />
 

@@ -2,6 +2,7 @@ package com.tigerxdaphne.tappertracker.pages.edit
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import android.widget.Filter
 import androidx.annotation.PluralsRes
 import com.tigerxdaphne.tappertracker.R
 import org.threeten.bp.temporal.ChronoUnit
@@ -19,6 +20,8 @@ class TimeUnitAdapter(
         // We'll manage notifyDataSetChanged calls ourselves
         setNotifyOnChange(false)
     }
+
+    override fun getFilter(): Filter = FilterNothing()
 
     /**
      * Update
@@ -40,5 +43,10 @@ class TimeUnitAdapter(
         ChronoUnit.MONTHS -> R.plurals.time_unit_month
         ChronoUnit.YEARS -> R.plurals.time_unit_year
         else -> throw Exception("$timeUnit not supported")
+    }
+
+    private class FilterNothing : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults? = null
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) = Unit
     }
 }

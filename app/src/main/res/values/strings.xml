@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tapper Tracker</string>
 
+    <string name="add_tag_label">Adding a tag</string>
     <string name="add_tag_title">Tap a tag to track!</string>
     <string name="add_tag_description">Place your device on top of a Tapper Tracker Tag to start tracking it.</string>
 
@@ -33,7 +34,7 @@
         <item quantity="other">days</item>
     </plurals>
 
-    <string name="close">Close</string>
+    <string name="exit">Exit</string>
     <string name="cancel">Cancel</string>
     <string name="pause">Stop</string>
     <string name="pause_description">Stop reminder timer, yo</string>
@@ -44,6 +45,7 @@
 
     <string name="stopped">Tracking stopped</string>
 
+    <string name="edit_tag_title">Editing tag</string>
     <string name="new_tag_title">New tag tapped</string>
     <string name="new_tag_message">Save this tag to begin tracking.</string>
     <string name="save">Save</string>
@@ -52,4 +54,8 @@
     <string name="tag_name_blank_error">Name cannot be blank</string>
     <string name="remind_in">Remind me in</string>
     <string name="on_date">on</string>
+    <string name="exit_no_save_title">Exit without saving?</string>
+    <string name="exit_no_save_new_tag_no_name_message">Your new tag will not be saved.</string>
+    <string name="exit_no_save_new_tag_message">%1$s will not be saved.</string>
+    <string name="exit_no_save_existing_tag_message">Your changes to %1$s will not be saved.</string>
 </resources>

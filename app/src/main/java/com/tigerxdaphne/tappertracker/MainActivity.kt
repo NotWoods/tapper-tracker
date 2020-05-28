@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentArgs
 import com.tigerxdaphne.tappertracker.pages.tapped.NewTagTappedAlertDialog
@@ -22,8 +23,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(findViewById(R.id.toolbar))
+        setupActionBarWithNavController(navController)
 
         setupNfc()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     private fun setupNfc() {
@@ -41,8 +47,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
         lifecycleScope.launch {
             val tappedTag = repository.getTag(tag.id)
             if (tappedTag != null) {
-                val args = ExistingTagTappedFragmentArgs(tappedTag)
-                navController.navigate(R.id.existingTagTappedFragment, args.toBundle())
+                navController.navigate(NavGraphDirections.actionGlobalExistingTagTappedFragment(tappedTag))
             } else {
                 NewTagTappedAlertDialog(
                     this@MainActivity,

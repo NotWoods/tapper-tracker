@@ -5,14 +5,18 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/listFragment">
 
-    <!--<action
-        android:id="@+id/action_global_addTagFragment"
-        app:destination="@id/addTagFragment" />-->
+    <action
+        android:id="@+id/action_global_existingTagTappedFragment"
+        app:destination="@id/existingTagTappedFragment" />
+
+    <action
+        android:id="@+id/action_global_editFragment"
+        app:destination="@id/editFragment" />
 
     <fragment
         android:id="@+id/howToTapFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.HowToTapFragment"
-        android:label="HowToTapFragment"
+        android:label="@string/add_tag_label"
         tools:layout="@layout/fragment_how_to_tap" >
         <action
             android:id="@+id/action_howToTapFragment_to_listFragment"
@@ -21,12 +25,12 @@
     <fragment
         android:id="@+id/noNfcFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.NoNfcFragment"
-        android:label="fragment_no_nfc"
+        android:label="@string/no_nfc_title"
         tools:layout="@layout/fragment_no_nfc" />
     <fragment
         android:id="@+id/listFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.list.ListFragment"
-        android:label="fragment_list"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_howToTapFragment"
@@ -40,7 +44,7 @@
     </fragment>
     <fragment android:id="@+id/editFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.edit.EditFragment"
-        android:label="fragment_edit"
+        android:label="@string/edit_tag_title"
         tools:layout="@layout/fragment_edit">
         <argument
             android:name="tag"
@@ -55,7 +59,6 @@
     <dialog
         android:id="@+id/existingTagTappedFragment"
         android:name="com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragment"
-        android:label="fragment_existing_tag_tapped"
         tools:layout="@layout/fragment_existing_tag_tapped">
         <argument
             android:name="tag"

@@ -1,6 +1,7 @@
 package com.tigerxdaphne.tappertracker.pages.edit
 
-import android.content.Context
+import android.content.DialogInterface.BUTTON_NEGATIVE
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,21 +9,18 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
-import com.tigerxdaphne.tappertracker.MainActivity
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
@@ -36,10 +34,29 @@ class EditFragment : Fragment() {
     }
     private var binding by viewBinding<FragmentEditBinding>()
     private lateinit var reminderUnitAdapter: TimeUnitAdapter
+    private lateinit var confirmOnExit: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        confirmOnExit = requireActivity().onBackPressedDispatcher.addCallback(
+            owner = this,
+            enabled = false
+        ) {
+            ConfirmationAlertDialog(
+                requireContext(),
+                args
+            ) { _, which ->
+                when (which) {
+                    BUTTON_POSITIVE -> viewLifecycleOwner.lifecycleScope.launch { saveTag() }
+                    BUTTON_NEGATIVE -> {
+                        // Exit without saving
+                        findNavController().navigateUp()
+                    }
+                }
+            }.show()
+        }
     }
 
     override fun onCreateView(
@@ -53,12 +70,19 @@ class EditFragment : Fragment() {
         binding.reminderUnitField.setAdapter(reminderUnitAdapter)
 
         binding.nameField.setText(args.tag.customName)
+        binding.nameField.doAfterTextChanged {
+            confirmOnExit.isEnabled = true
+        }
+        if (args.isNew) {
+            binding.nameField.requestFocus()
+        }
 
         val days = viewModel.daysUntil(args.tag.reminder).toLong()
         reminderUnitAdapter.setPluralFor(days, viewModel.timeUnits)
         onReminderDateChanged(args.tag.reminder)
 
         binding.reminderDurationField.doAfterTextChanged {
+            confirmOnExit.isEnabled = true
             val durationLong = it.toString().toLongOrNull()
             reminderUnitAdapter.setPluralFor(durationLong, viewModel.timeUnits)
             onReminderPeriodChanged(
@@ -67,6 +91,7 @@ class EditFragment : Fragment() {
             )
         }
         binding.reminderUnitField.setOnItemClickListener { _, _, position, _ ->
+            confirmOnExit.isEnabled = true
             onReminderPeriodChanged(
                 duration = binding.reminderDurationField.text?.toString()?.toLongOrNull(),
                 unitPosition = position
@@ -80,28 +105,20 @@ class EditFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).toolbar.apply {
-            navigationIcon = getDrawable(context, R.drawable.ic_close)
-            navigationContentDescription = getString(R.string.close)
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).toolbar.apply {
-            navigationIcon = null
-            navigationContentDescription = null
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_edit, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                if (confirmOnExit.isEnabled) {
+                    confirmOnExit.handleOnBackPressed()
+                    true
+                } else {
+                    false
+                }
+            }
             R.id.action_save -> {
                 viewLifecycleOwner.lifecycleScope.launch { saveTag() }
                 true
@@ -124,14 +141,20 @@ class EditFragment : Fragment() {
         viewModel.reminderDate = date
         binding.dateField.setText(date.format(viewModel.dateFieldFormatter))
         binding.reminderDurationField.setText(viewModel.daysUntil(date).toString())
-        binding.reminderUnitField.listSelection = viewModel.timeUnits.indexOf(ChronoUnit.DAYS)
+
+        val selectedUnitIndex = viewModel.timeUnits.indexOf(ChronoUnit.DAYS)
+        binding.reminderUnitField.listSelection = selectedUnitIndex
+        binding.reminderUnitField.setText(reminderUnitAdapter.getItem(selectedUnitIndex))
     }
 
     private fun showDatePicker() {
         val datePicker = viewModel.buildDatePicker()
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = LocalDate.from(Instant.ofEpochMilli(selection))
+            confirmOnExit.isEnabled = true
+            val selectedDate = Instant.ofEpochMilli(selection)
+                .atZone(viewModel.timeZone)
+                .toLocalDate()
             onReminderDateChanged(selectedDate)
         }
 

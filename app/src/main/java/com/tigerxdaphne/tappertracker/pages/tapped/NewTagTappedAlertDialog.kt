@@ -4,6 +4,7 @@ import android.content.Context
 import android.nfc.Tag
 import androidx.navigation.NavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tigerxdaphne.tappertracker.NavGraphDirections
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
@@ -34,8 +35,7 @@ class NewTagTappedAlertDialog(
                 reminder = today.plusWeeks(1)
             )
 
-            val args = EditFragmentArgs(newTappedTag, isNew = true)
-            navController.navigate(R.id.editFragment, args.toBundle())
+            navController.navigate(NavGraphDirections.actionGlobalEditFragment(newTappedTag, isNew = true))
             dialog.dismiss()
         }
     }
