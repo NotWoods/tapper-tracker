@@ -54,6 +54,7 @@
     <string name="tag_name_blank_error">Name cannot be blank</string>
     <string name="remind_in">Remind me in</string>
     <string name="on_date">on</string>
+    <string name="notes">Notes</string>
     <string name="exit_no_save_title">Exit without saving?</string>
     <string name="exit_no_save_new_tag_no_name_message">Your new tag will not be saved.</string>
     <string name="exit_no_save_new_tag_message">%1$s will not be saved.</string>

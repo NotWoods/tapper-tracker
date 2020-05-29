@@ -93,14 +93,16 @@ class EditFragment : Fragment() {
             if (!text.isNullOrBlank()) binding.name.error = null
         }
 
-        val days = viewModel.daysUntil(args.tag.reminder).toLong()
-        reminderUnitAdapter.setPluralFor(days, viewModel.timeUnits)
+        binding.notesField.setText(args.tag.notes)
+
         onReminderDateChanged(args.tag.reminder)
 
         binding.reminderDurationField.doAfterTextChanged {
             confirmOnExit.isEnabled = true
             val durationLong = it.toString().toLongOrNull()
             reminderUnitAdapter.setPluralFor(durationLong, viewModel.timeUnits)
+            updateUnitField()
+
             onReminderPeriodChanged(
                 duration = durationLong,
                 unitPosition = binding.reminderUnitField.listSelection
@@ -159,11 +161,23 @@ class EditFragment : Fragment() {
 
         viewModel.reminderDate = date
         binding.dateField.setText(date.format(viewModel.dateFieldFormatter))
-        binding.reminderDurationField.setText(viewModel.daysUntil(date).toString())
+
+        val days = viewModel.daysUntil(date)
+        binding.reminderDurationField.setText(days.toString())
+        reminderUnitAdapter.setPluralFor(days.toLong(), viewModel.timeUnits)
 
         val selectedUnitIndex = viewModel.timeUnits.indexOf(ChronoUnit.DAYS)
         binding.reminderUnitField.listSelection = selectedUnitIndex
-        binding.reminderUnitField.setText(reminderUnitAdapter.getItem(selectedUnitIndex))
+        updateUnitField()
+    }
+
+    private fun updateUnitField() {
+        var selectionIndex = binding!!.reminderUnitField.listSelection
+        if (selectionIndex == -1) {
+            selectionIndex = viewModel.timeUnits.indexOf(ChronoUnit.DAYS)
+        }
+
+        binding!!.reminderUnitField.setText(reminderUnitAdapter.getItem(selectionIndex))
     }
 
     private fun showDatePicker() {
@@ -190,7 +204,7 @@ class EditFragment : Fragment() {
             return
         }
 
-        viewModel.saveTag(customName)
+        viewModel.saveTag(customName, binding!!.notesField.text.toString())
         findNavController().navigate(EditFragmentDirections.actionEditFragmentToListFragment())
     }
 }

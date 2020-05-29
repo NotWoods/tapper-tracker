@@ -9,8 +9,6 @@
         <item name="colorAccent">@color/colorSecondary</item>
 
         <item name="android:navigationBarColor">@android:color/transparent</item>
-
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
     </style>
 
     <!-- Filled buttons -->
@@ -31,11 +29,6 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu</item>
     </style>
     <style name="ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu" parent="ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox">
-        <item name="colorPrimary">?attr/colorSecondary</item>
-    </style>
-
-    <!-- Alert dialogs -->
-    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorPrimary">?attr/colorSecondary</item>
     </style>
 </resources>

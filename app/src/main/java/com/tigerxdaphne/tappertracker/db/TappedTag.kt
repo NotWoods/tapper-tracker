@@ -21,8 +21,17 @@ data class TappedTag(
     val lastSet: LocalDate,
     val reminder: LocalDate,
     val customName: String = "",
+    val notes: String = "",
     val isStopped: Boolean = false
 ) : Parcelable {
+
+    companion object {
+        fun fromToday(id: ByteArray, today: LocalDate) = TappedTag(
+            id = id,
+            lastSet = today,
+            reminder = today.plusWeeks(1)
+        )
+    }
 
     /**
      * Returns the name. If no custom name was specified,
@@ -33,27 +42,26 @@ data class TappedTag(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
+
         other as TappedTag
 
-        return id.contentEquals(other.id) &&
-                reminder == other.reminder &&
-                customName == other.customName &&
-                lastSet == other.lastSet
+        if (!id.contentEquals(other.id)) return false
+        if (lastSet != other.lastSet) return false
+        if (reminder != other.reminder) return false
+        if (customName != other.customName) return false
+        if (notes != other.notes) return false
+        if (isStopped != other.isStopped) return false
+
+        return true
     }
 
     override fun hashCode(): Int {
         var result = id.contentHashCode()
+        result = 31 * result + lastSet.hashCode()
         result = 31 * result + reminder.hashCode()
         result = 31 * result + customName.hashCode()
-        result = 31 * result + lastSet.hashCode()
+        result = 31 * result + notes.hashCode()
+        result = 31 * result + isStopped.hashCode()
         return result
-    }
-
-    companion object {
-        fun fromToday(id: ByteArray, today: LocalDate) = TappedTag(
-            id = id,
-            lastSet = today,
-            reminder = today.plusWeeks(1)
-        )
     }
 }

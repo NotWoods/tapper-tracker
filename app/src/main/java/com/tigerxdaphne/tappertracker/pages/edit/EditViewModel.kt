@@ -58,10 +58,11 @@ class EditViewModel(
     fun daysUntil(reminderDate: LocalDate) =
         Period.between(originalTag.lastSet, reminderDate).days
 
-    suspend fun saveTag(customName: String) = withContext(IO) {
+    suspend fun saveTag(customName: String, notes: String) = withContext(IO) {
         val editedTag = originalTag.copy(
             reminder = reminderDate,
-            customName = customName
+            customName = customName,
+            notes = notes
         )
 
         if (isNew) {
