@@ -156,11 +156,11 @@
         android:id="@+id/notesIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_note"
         android:tint="@color/solid"
-        app:layout_constraintBottom_toBottomOf="@id/notes"
         app:layout_constraintEnd_toEndOf="@id/iconGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/notes" />

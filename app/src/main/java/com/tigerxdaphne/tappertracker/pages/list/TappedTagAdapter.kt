@@ -41,7 +41,7 @@ class TappedTagViewHolder(
     fun bind(tag: TappedTag) {
         val resources = binding.root.resources
         val lastTapped = tag.lastSet.format(lastUpdatedFormatter)
-        val remainingTime = Period.between(tag.reminder, today).normalized()
+        val remainingTime = Period.between(today, tag.reminder).normalized()
 
         binding.name.text = tag.name
         binding.lastTapped.text = resources.getString(R.string.last_tapped_on, lastTapped)
@@ -49,7 +49,7 @@ class TappedTagViewHolder(
             tag.isStopped -> resources.getString(R.string.stopped)
             remainingTime.years > 0 -> resources.getString(R.string.remaining_years, remainingTime.years)
             remainingTime.months > 0 -> resources.getString(R.string.remaining_months, remainingTime.months)
-            else -> resources.getString(R.string.remaining_days, remainingTime.days)
+            else -> resources.getQuantityString(R.plurals.remaining_days, remainingTime.days)
         }
     }
 }
