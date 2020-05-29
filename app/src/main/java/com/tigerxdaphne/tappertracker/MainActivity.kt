@@ -1,5 +1,6 @@
 package com.tigerxdaphne.tappertracker
 
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
@@ -8,15 +9,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tigerxdaphne.tappertracker.db.TappedRepository
+import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.pages.tapped.NewTagTappedAlertDialog
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
     private val repository: TappedRepository by inject()
+    private val newTagDialog by lazy { NewTagTappedAlertDialog(this).create() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +52,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), KoinComponent {
             if (tappedTag != null) {
                 navController.navigate(NavGraphDirections.actionGlobalExistingTagTappedFragment(tappedTag))
             } else {
-                NewTagTappedAlertDialog(
-                    this@MainActivity,
-                    navController,
-                    tag
-                ).show()
+                newTagDialog.setButton(BUTTON_POSITIVE, getString(R.string.save)) { dialog, _ ->
+                    val newTag = TappedTag.fromToday(tag.id, today = LocalDate.now())
+                    navController.navigate(NavGraphDirections.actionGlobalEditFragment(newTag, isNew = true))
+                    dialog.dismiss()
+                }
+                newTagDialog.show()
             }
         }
     }

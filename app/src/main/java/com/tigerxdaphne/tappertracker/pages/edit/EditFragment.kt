@@ -133,10 +133,10 @@ class EditFragment : Fragment() {
             android.R.id.home -> {
                 if (confirmOnExit.isEnabled) {
                     confirmOnExit.handleOnBackPressed()
-                    true
                 } else {
-                    false
+                    findNavController().navigate(EditFragmentDirections.actionEditFragmentToListFragment())
                 }
+                true
             }
             R.id.action_save -> {
                 viewLifecycleOwner.lifecycleScope.launch { saveTag() }

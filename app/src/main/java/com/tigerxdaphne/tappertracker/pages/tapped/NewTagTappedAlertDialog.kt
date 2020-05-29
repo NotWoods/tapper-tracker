@@ -8,35 +8,24 @@ import com.tigerxdaphne.tappertracker.NavGraphDirections
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
+import java.lang.IllegalStateException
 import java.time.LocalDate
 
 /**
  * Builds an alert dialog to display when a new tag is tapped.
  * Call [show] to display the alert.
  */
-class NewTagTappedAlertDialog(
-    context: Context,
-    navController: NavController,
-    tag: Tag
-) : MaterialAlertDialogBuilder(context) {
+class NewTagTappedAlertDialog(context: Context) : MaterialAlertDialogBuilder(context) {
 
     init {
-        setTitle(context.getString(R.string.new_tag_title))
-        setMessage(context.getString(R.string.new_tag_message))
+        setTitle(R.string.new_tag_title)
+        setMessage(R.string.new_tag_message)
 
-        setNegativeButton(context.getString(R.string.cancel)) { dialog, _ ->
+        setNegativeButton(R.string.cancel) { dialog, _ ->
             dialog.cancel()
         }
-        setPositiveButton(context.getString(R.string.save)) { dialog, _ ->
-            val today = LocalDate.now()
-            val newTappedTag = TappedTag(
-                id = tag.id,
-                lastSet = today,
-                reminder = today.plusWeeks(1)
-            )
-
-            navController.navigate(NavGraphDirections.actionGlobalEditFragment(newTappedTag, isNew = true))
-            dialog.dismiss()
+        setPositiveButton(R.string.save) { _, _ ->
+            throw IllegalStateException("This callback should be overridden before showing the dialog")
         }
     }
 }

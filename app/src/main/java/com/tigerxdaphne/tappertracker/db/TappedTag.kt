@@ -48,4 +48,12 @@ data class TappedTag(
         result = 31 * result + lastSet.hashCode()
         return result
     }
+
+    companion object {
+        fun fromToday(id: ByteArray, today: LocalDate) = TappedTag(
+            id = id,
+            lastSet = today,
+            reminder = today.plusWeeks(1)
+        )
+    }
 }
