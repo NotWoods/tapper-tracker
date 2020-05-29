@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Handles device restart broadcasts, which clear out alarms.

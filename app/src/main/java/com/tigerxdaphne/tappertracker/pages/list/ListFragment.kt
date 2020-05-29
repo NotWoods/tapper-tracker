@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tigerxdaphne.tappertracker.databinding.FragmentListBinding
 import com.tigerxdaphne.tappertracker.viewBinding
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 class ListFragment : Fragment() {
 

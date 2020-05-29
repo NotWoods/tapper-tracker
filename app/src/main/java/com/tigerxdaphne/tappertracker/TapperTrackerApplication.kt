@@ -1,7 +1,6 @@
 package com.tigerxdaphne.tappertracker
 
 import android.app.Application
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tigerxdaphne.tappertracker.koin.databaseModule
 import com.tigerxdaphne.tappertracker.koin.systemServiceModule
 import org.koin.android.ext.koin.androidContext
@@ -11,7 +10,6 @@ class TapperTrackerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AndroidThreeTen.init(this)
         startKoin {
             androidContext(this@TapperTrackerApplication)
             modules(databaseModule, systemServiceModule)

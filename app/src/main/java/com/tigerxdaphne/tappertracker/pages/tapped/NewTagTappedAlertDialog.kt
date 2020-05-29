@@ -8,7 +8,7 @@ import com.tigerxdaphne.tappertracker.NavGraphDirections
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Builds an alert dialog to display when a new tag is tapped.

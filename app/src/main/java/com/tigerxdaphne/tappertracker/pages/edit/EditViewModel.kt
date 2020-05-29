@@ -10,13 +10,13 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Period
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
-import org.threeten.bp.temporal.ChronoUnit
+import java.time.LocalDate
+import java.time.Period
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.time.temporal.ChronoUnit
 
 class EditViewModel(
     private val originalTag: TappedTag,

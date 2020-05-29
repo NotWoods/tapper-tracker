@@ -1,6 +1,6 @@
 package com.tigerxdaphne.tappertracker.db
 
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Subset of [TappedTag] that only contains the reminder date.

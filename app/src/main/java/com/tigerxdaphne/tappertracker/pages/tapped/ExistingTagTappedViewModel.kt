@@ -9,8 +9,8 @@ import com.tigerxdaphne.tappertracker.db.TappedTag
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Period
+import java.time.LocalDate
+import java.time.Period
 
 class ExistingTagTappedViewModel(
     private val existingTag: TappedTag

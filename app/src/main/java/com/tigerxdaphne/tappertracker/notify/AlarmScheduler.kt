@@ -5,8 +5,8 @@ import android.content.Context
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
+import java.time.LocalDate
+import java.time.ZoneId
 
 class AlarmScheduler : KoinComponent {
 

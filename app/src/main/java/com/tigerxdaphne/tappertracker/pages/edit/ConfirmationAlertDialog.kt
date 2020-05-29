@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTag
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Builds an alert dialog that should be displayed when exit or back is pressed.

@@ -1,6 +1,6 @@
 package com.tigerxdaphne.tappertracker.db
 
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 class TappedRepository(
     private val tappedTagDao: TappedTagDao

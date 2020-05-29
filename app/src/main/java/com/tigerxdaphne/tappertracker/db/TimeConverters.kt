@@ -1,9 +1,9 @@
 package com.tigerxdaphne.tappertracker.db
 
 import androidx.room.TypeConverter
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Period
-import org.threeten.bp.ZonedDateTime
+import java.time.LocalDate
+import java.time.Period
+import java.time.ZonedDateTime
 
 class TimeConverters {
 

@@ -2,7 +2,7 @@ package com.tigerxdaphne.tappertracker.db
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 @Dao
 interface TappedTagDao {

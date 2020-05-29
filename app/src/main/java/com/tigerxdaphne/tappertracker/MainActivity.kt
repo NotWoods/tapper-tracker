@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentArgs
 import com.tigerxdaphne.tappertracker.pages.tapped.NewTagTappedAlertDialog
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent

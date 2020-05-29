@@ -17,14 +17,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
 import kotlinx.coroutines.launch
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.temporal.ChronoUnit
+import java.time.Instant
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 /**
  * Fragment used to edit properties on a TappedTag.
@@ -91,7 +90,7 @@ class EditFragment : Fragment() {
         }
         binding.nameField.doAfterTextChanged { text ->
             confirmOnExit.isEnabled = true
-            if (!text.isNullOrBlank()) binding!!.name.error = null
+            if (!text.isNullOrBlank()) binding.name.error = null
         }
 
         val days = viewModel.daysUntil(args.tag.reminder).toLong()

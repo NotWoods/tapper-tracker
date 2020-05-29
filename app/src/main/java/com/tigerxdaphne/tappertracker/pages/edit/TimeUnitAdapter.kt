@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.annotation.PluralsRes
 import com.tigerxdaphne.tappertracker.R
-import org.threeten.bp.temporal.ChronoUnit
+import java.time.temporal.ChronoUnit
 import java.lang.Exception
 
 /**

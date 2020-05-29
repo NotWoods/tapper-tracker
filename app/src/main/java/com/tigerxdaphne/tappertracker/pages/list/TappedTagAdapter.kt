@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
 import com.tigerxdaphne.tappertracker.db.TappedTag
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Period
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class TappedTagAdapter(
     private val today: LocalDate

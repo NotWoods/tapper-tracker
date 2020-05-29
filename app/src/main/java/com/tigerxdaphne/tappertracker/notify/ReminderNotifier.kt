@@ -12,7 +12,7 @@ import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 const val NOTIFICATION_CHANNEL_ID = "tag_reminder"
 

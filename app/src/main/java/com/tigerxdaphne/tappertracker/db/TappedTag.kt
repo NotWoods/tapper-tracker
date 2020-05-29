@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Stores data about a single NFC tag.
