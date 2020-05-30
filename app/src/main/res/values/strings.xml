@@ -12,13 +12,15 @@
     <string name="no_nfc_title">NFC not supported</string>
     <string name="no_nfc_description">NFC is required for Tapper Tracker to function, but not supported by your device. Please use a phone with NFC support.</string>
 
-    <string name="last_tapped_on">Last tapped on %s</string>
-    <string name="remaining_years">%d yr. left</string>
-    <string name="remaining_months">%d mo. left</string>
+    <string name="last_tapped_on">Last tapped on %1$s</string>
+    <string name="remaining_years">%1$d yr. left</string>
+    <string name="remaining_months">%1$d mo. left</string>
     <plurals name="remaining_days">
-        <item quantity="one">%d day left</item>
-        <item quantity="other">%d days left</item>
+        <item quantity="one">%1$d day left</item>
+        <item quantity="other">%1$d days left</item>
     </plurals>
+    <string name="remaining_none">Today</string>
+    <string name="remaining_negative">Tracked</string>
 
     <plurals name="time_unit_year">
         <item quantity="one">year</item>

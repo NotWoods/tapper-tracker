@@ -1,15 +1,9 @@
 package com.tigerxdaphne.tappertracker.pages.tapped
 
 import android.content.Context
-import android.nfc.Tag
-import androidx.navigation.NavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.tigerxdaphne.tappertracker.NavGraphDirections
 import com.tigerxdaphne.tappertracker.R
-import com.tigerxdaphne.tappertracker.db.TappedTag
-import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
 import java.lang.IllegalStateException
-import java.time.LocalDate
 
 /**
  * Builds an alert dialog to display when a new tag is tapped.

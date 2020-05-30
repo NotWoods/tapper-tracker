@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.db.TappedTag
+import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -19,12 +20,16 @@ class ExistingTagTappedViewModel(
     private val repository: TappedRepository by inject()
 
     fun stop() = viewModelScope.launch {
-        repository.updateTag(existingTag.copy(lastSet = today(), isStopped = true))
+        val updatedTag = TappedTagModel.fromInterface(existingTag).copy(
+            lastSet = today(),
+            isStopped = true
+        )
+        repository.updateTag(updatedTag)
     }
 
     fun reset() = viewModelScope.launch {
-        val reminderLength =  Period.between(existingTag.lastSet, existingTag.reminder)
-        val newTag = existingTag.copy(
+        val reminderLength = Period.between(existingTag.lastSet, existingTag.reminder)
+        val newTag = TappedTagModel.fromInterface(existingTag).copy(
             lastSet = today(),
             reminder = today().plus(reminderLength),
             isStopped = false

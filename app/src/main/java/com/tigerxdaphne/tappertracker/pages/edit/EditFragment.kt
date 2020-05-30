@@ -84,7 +84,7 @@ class EditFragment : Fragment() {
         reminderUnitAdapter = TimeUnitAdapter(binding.root.context)
         binding.reminderUnitField.setAdapter(reminderUnitAdapter)
 
-        binding.nameField.setText(args.tag.customName)
+        binding.nameField.setText(args.tag.name)
         if (args.isNew) {
             binding.nameField.requestFocus()
         }

@@ -6,6 +6,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.db.TappedTag
+import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
@@ -59,9 +60,9 @@ class EditViewModel(
         Period.between(originalTag.lastSet, reminderDate).days
 
     suspend fun saveTag(customName: String, notes: String) = withContext(IO) {
-        val editedTag = originalTag.copy(
+        val editedTag = TappedTagModel.fromInterface(originalTag).copy(
             reminder = reminderDate,
-            customName = customName,
+            name = customName,
             notes = notes
         )
 

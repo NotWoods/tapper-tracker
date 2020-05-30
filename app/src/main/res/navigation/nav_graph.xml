@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_edit">
         <argument
             android:name="tag"
-            app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
+            app:argType="com.tigerxdaphne.tappertracker.db.TappedTagModel" />
         <argument
             android:name="isNew"
             app:argType="boolean" />
@@ -62,7 +62,7 @@
         tools:layout="@layout/fragment_existing_tag_tapped">
         <argument
             android:name="tag"
-            app:argType="com.tigerxdaphne.tappertracker.db.TappedTag" />
+            app:argType="com.tigerxdaphne.tappertracker.db.TappedTagModel" />
         <action
             android:id="@+id/action_existingTagTappedFragment_to_editFragment"
             app:destination="@id/editFragment" />

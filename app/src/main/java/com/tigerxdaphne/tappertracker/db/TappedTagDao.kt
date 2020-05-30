@@ -8,20 +8,20 @@ import java.time.LocalDate
 interface TappedTagDao {
 
     @Insert
-    suspend fun add(tag: TappedTag)
+    suspend fun add(tag: TappedTagModel)
 
     @Update
-    suspend fun update(tag: TappedTag)
+    suspend fun update(tag: TappedTagModel)
 
     @Query("SELECT * from tags WHERE id = :id LIMIT 1")
-    suspend fun getTag(id: ByteArray): TappedTag?
+    suspend fun getTag(id: ByteArray): TappedTagModel?
 
     @Query("SELECT * from tags ORDER BY lastSet DESC")
-    fun getAll(): Flow<List<TappedTag>>
+    fun getAll(): Flow<List<TappedTagModel>>
 
     @Query("SELECT reminder from tags WHERE reminder >= :today ORDER BY reminder ASC LIMIT 1")
     suspend fun getUpcomingReminder(today: LocalDate): TagReminder?
 
     @Query("SELECT * from tags WHERE reminder = :date")
-    suspend fun getAllRemindersOnDate(date: LocalDate): List<TappedTag>
+    suspend fun getAllRemindersOnDate(date: LocalDate): List<TappedTagModel>
 }

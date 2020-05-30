@@ -1,18 +1,17 @@
 package com.tigerxdaphne.tappertracker.pages
 
+import android.app.Activity
 import android.view.LayoutInflater
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.tigerxdaphne.tappertracker.MainActivity
 import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
-import com.tigerxdaphne.tappertracker.db.TappedTag
+import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import com.tigerxdaphne.tappertracker.pages.list.TappedTagViewHolder
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDate
-import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -25,7 +24,7 @@ class TappedTagAdapterTest {
 
     @Before
     fun setup() {
-        val scenario = launchActivity<MainActivity>()
+        val scenario = launchActivity<Activity>()
         scenario.onActivity { activity ->
             binding = ListItemTappedTagBinding.inflate(LayoutInflater.from(activity))
         }
@@ -33,11 +32,11 @@ class TappedTagAdapterTest {
 
     @Test
     fun bindsCustomName() {
-        val tag = TappedTag(
+        val tag = TappedTagModel(
             id = "123".toByteArray(),
             lastSet = janFirst,
-            reminderDuration = Period.ZERO,
-            customName = "Battery-powered device"
+            reminder = janFirst,
+            name = "Battery-powered device"
         )
         TappedTagViewHolder(
             binding,
@@ -49,28 +48,11 @@ class TappedTagAdapterTest {
     }
 
     @Test
-    fun bindsIdAsFallbackName() {
-        val tag = TappedTag(
-            id = "123".toByteArray(),
-            lastSet = janFirst,
-            reminderDuration = Period.ZERO,
-            customName = "   "
-        )
-        TappedTagViewHolder(
-            binding,
-            janFirst,
-            lastUpdatedFormatter
-        ).bind(tag)
-
-        verify { binding.name.text = "123" }
-    }
-
-    @Test
     fun bindsLastTapped() {
-        val tag = TappedTag(
+        val tag = TappedTagModel(
             id = "123".toByteArray(),
             lastSet = janFirst,
-            reminderDuration = Period.ZERO
+            reminder = janFirst
         )
         TappedTagViewHolder(
             binding,
