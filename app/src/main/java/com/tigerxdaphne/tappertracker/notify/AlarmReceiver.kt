@@ -16,6 +16,7 @@ import java.time.LocalDate
  */
 class AlarmReceiver : BroadcastReceiver(), KoinComponent {
 
+    private val alarmScheduler: AlarmScheduler by inject()
     private val coroutineScope: CoroutineScope by inject()
 
     /**
@@ -24,7 +25,7 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context, intent: Intent) {
         val today = LocalDate.now()
         coroutineScope.launch { ReminderNotifier().displayReminderNotification(context, today) }
-        coroutineScope.launch { AlarmScheduler().scheduleUpcomingReminderAlarm(context, today) }
+        coroutineScope.launch { alarmScheduler.scheduleUpcomingReminderAlarm(context, today) }
     }
 
     companion object {

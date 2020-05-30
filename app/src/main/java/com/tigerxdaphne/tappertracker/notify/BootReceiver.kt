@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_BOOT_COMPLETED
+import androidx.lifecycle.ProcessLifecycleOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -15,6 +16,7 @@ import java.time.LocalDate
  */
 class BootReceiver : BroadcastReceiver(), KoinComponent {
 
+    private val alarmScheduler: AlarmScheduler by inject()
     private val coroutineScope: CoroutineScope by inject()
 
     /**
@@ -23,7 +25,7 @@ class BootReceiver : BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == ACTION_BOOT_COMPLETED) {
             val today = LocalDate.now()
-            coroutineScope.launch { AlarmScheduler().scheduleUpcomingReminderAlarm(context, today) }
+            coroutineScope.launch { alarmScheduler.scheduleUpcomingReminderAlarm(context, today) }
         }
     }
 }

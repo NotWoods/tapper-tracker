@@ -3,15 +3,13 @@ package com.tigerxdaphne.tappertracker.notify
 import android.app.AlarmManager
 import android.content.Context
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.time.LocalDate
 import java.time.ZoneId
 
-class AlarmScheduler : KoinComponent {
-
-    private val repository: TappedRepository by inject()
-    private val alarmManager: AlarmManager by inject()
+class AlarmScheduler(
+    private val repository: TappedRepository,
+    private val alarmManager: AlarmManager
+) {
 
     /**
      * Sets up an alarm to fire when the next reminder is ready.

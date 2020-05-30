@@ -14,13 +14,11 @@ import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
-import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -62,7 +60,7 @@ class EditFragment : Fragment() {
             ConfirmationAlertDialog(context, customName, args.isNew) { _, which ->
                 when (which) {
                     // Trigger save
-                    BUTTON_POSITIVE -> viewLifecycleOwner.lifecycleScope.launch { saveTag() }
+                    BUTTON_POSITIVE -> saveTag()
                     // Exit without saving
                     BUTTON_NEGATIVE -> findNavController().navigateUp()
                     // Cancel does nothing
@@ -141,7 +139,7 @@ class EditFragment : Fragment() {
                 true
             }
             R.id.action_save -> {
-                viewLifecycleOwner.lifecycleScope.launch { saveTag() }
+                saveTag()
                 true
             }
             else -> false
@@ -197,14 +195,14 @@ class EditFragment : Fragment() {
     /**
      * Validate the text fields then save the tag.
      */
-    private suspend fun saveTag() {
+    private fun saveTag() {
         val customName = binding!!.nameField.text.toString()
         if (customName.isBlank()) {
             binding!!.name.error = getString(R.string.tag_name_blank_error)
             return
         }
 
-        viewModel.saveTag(customName, binding!!.notesField.text.toString())
+        viewModel.saveTag(requireContext(), customName, binding!!.notesField.text.toString())
         findNavController().navigate(EditFragmentDirections.actionEditFragmentToListFragment())
     }
 }

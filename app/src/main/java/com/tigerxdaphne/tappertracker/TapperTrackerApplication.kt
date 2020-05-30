@@ -1,6 +1,7 @@
 package com.tigerxdaphne.tappertracker
 
 import android.app.Application
+import com.tigerxdaphne.tappertracker.koin.alarmModule
 import com.tigerxdaphne.tappertracker.koin.databaseModule
 import com.tigerxdaphne.tappertracker.koin.systemServiceModule
 import org.koin.android.ext.koin.androidContext
@@ -12,7 +13,7 @@ class TapperTrackerApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@TapperTrackerApplication)
-            modules(databaseModule, systemServiceModule)
+            modules(databaseModule, systemServiceModule, alarmModule)
         }
     }
 }
