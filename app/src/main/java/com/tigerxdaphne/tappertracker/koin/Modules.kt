@@ -15,6 +15,7 @@ import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
 import kotlinx.coroutines.CoroutineScope
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import java.time.Clock
 
 val databaseModule = module {
     single<AppDatabase> {
@@ -34,6 +35,7 @@ val systemServiceModule = module {
 }
 
 val alarmModule = module {
+    single<Clock> { Clock.systemUTC() }
     single<AlarmScheduler> { AlarmScheduler(get(), get()) }
     single<CoroutineScope> { ProcessLifecycleOwner.get().lifecycleScope }
 }

@@ -2,14 +2,19 @@ package com.tigerxdaphne.tappertracker.notify
 
 import android.app.AlarmManager
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneId
 
 class AlarmScheduler(
     private val repository: TappedRepository,
-    private val alarmManager: AlarmManager
+    private val alarmManager: AlarmManager,
+    private val timeZone: () -> ZoneId = { ZoneId.systemDefault() }
 ) {
+
+    private val alarmTime = LocalTime.of(8, 0)
 
     /**
      * Sets up an alarm to fire when the next reminder is ready.
@@ -20,11 +25,11 @@ class AlarmScheduler(
         val tag = repository.getUpcomingReminder(today) ?: return
 
         val alarmIntent = AlarmReceiver.createPendingIntent(context)
-        val alarmTime = tag.reminder.atStartOfDay(ZoneId.systemDefault())
+        val alarmDateTime = tag.reminder.atTime(alarmTime).atZone(timeZone())
 
         alarmManager.set(
             AlarmManager.RTC,
-            alarmTime.toInstant().toEpochMilli(),
+            alarmDateTime.toInstant().toEpochMilli(),
             alarmIntent
         )
     }

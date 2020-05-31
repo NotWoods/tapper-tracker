@@ -40,7 +40,7 @@ class EditViewModel(
     )
 
     var reminderDate: LocalDate = originalTag.reminder
-    val timeZone: ZoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
+    val timeZone: ZoneId = ZoneOffset.UTC
 
     fun buildDatePicker(): MaterialDatePicker<Long> {
         val minDay = originalTag.lastSet.plusDays(1).toEpochMilli()
