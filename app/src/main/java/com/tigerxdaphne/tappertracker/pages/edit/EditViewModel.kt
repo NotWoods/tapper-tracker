@@ -40,7 +40,6 @@ class EditViewModel(
     )
 
     var reminderDate: LocalDate = originalTag.reminder
-    val timeZone: ZoneId = ZoneOffset.UTC
 
     fun buildDatePicker(): MaterialDatePicker<Long> {
         val minDay = originalTag.lastSet.plusDays(1).toEpochMilli()
@@ -81,7 +80,7 @@ class EditViewModel(
         alarmScheduler.scheduleUpcomingReminderAlarm(context, LocalDate.now())
     }
 
-    private fun LocalDate.toEpochMilli() = atStartOfDay(timeZone).toInstant().toEpochMilli()
+    private fun LocalDate.toEpochMilli() = atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
 
     class Factory(private val args: EditFragmentArgs) : ViewModelProvider.Factory {
         @Suppress("Unchecked_Cast")

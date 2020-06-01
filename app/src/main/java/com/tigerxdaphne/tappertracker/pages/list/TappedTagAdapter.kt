@@ -10,13 +10,14 @@ import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
 import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import com.tigerxdaphne.tappertracker.db.equalTags
+import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class TappedTagAdapter(
-    private val today: LocalDate
+    private val clock: Clock
 ) : ListAdapter<TappedTag, TappedTagViewHolder>(TappedTagDiffer) {
 
     private val lastUpdatedFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
@@ -24,21 +25,20 @@ class TappedTagAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TappedTagViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemTappedTagBinding.inflate(inflater, parent, false)
-        return TappedTagViewHolder(binding, today, lastUpdatedFormatter)
+        return TappedTagViewHolder(binding, lastUpdatedFormatter)
     }
 
     override fun onBindViewHolder(holder: TappedTagViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), today = LocalDate.now(clock))
     }
 }
 
 class TappedTagViewHolder(
     private val binding: ListItemTappedTagBinding,
-    private val today: LocalDate,
     private val lastUpdatedFormatter: DateTimeFormatter
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(tag: TappedTag) {
+    fun bind(tag: TappedTag, today: LocalDate) {
         val resources = binding.root.resources
         val lastTapped = tag.lastSet.format(lastUpdatedFormatter)
         val remainingTime = Period.between(today, tag.reminder).normalized()

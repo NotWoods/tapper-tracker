@@ -14,25 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tigerxdaphne.tappertracker.databinding.FragmentListBinding
 import com.tigerxdaphne.tappertracker.viewBinding
-import java.time.LocalDate
 
 class ListFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
     private val viewModel by viewModels<ListViewModel>()
     private var binding by viewBinding<FragmentListBinding>()
-    private lateinit var nfcAdapter: NfcAdapter
+    private lateinit var adapter: TappedTagAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val nfcAdapter: NfcAdapter? = NfcAdapter.getDefaultAdapter(context)
-        // NFC not supported on the device
-        if (nfcAdapter != null) {
-            this.nfcAdapter = nfcAdapter
-        } else {
-            val action =
-                ListFragmentDirections.actionListFragmentToNoNfcFragment()
+        if (!viewModel.deviceSupportsNfc(requireContext())) {
+            val action = ListFragmentDirections.actionListFragmentToNoNfcFragment()
             navController.navigate(action)
         }
     }
@@ -51,6 +45,13 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.dateChanged()) {
+            adapter.notifyDataSetChanged()
+        }
+    }
+
     private fun setupAddButton(addButton: ImageButton) {
         addButton.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToHowToTapFragment()
@@ -59,7 +60,7 @@ class ListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val adapter = TappedTagAdapter(LocalDate.now())
+        adapter = TappedTagAdapter(viewModel.clock)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

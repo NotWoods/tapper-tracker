@@ -21,6 +21,7 @@ import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 
 /**
@@ -184,7 +185,7 @@ class EditFragment : Fragment() {
         datePicker.addOnPositiveButtonClickListener { selection ->
             confirmOnExit.isEnabled = true
             val selectedDate = Instant.ofEpochMilli(selection)
-                .atZone(viewModel.timeZone)
+                .atZone(ZoneOffset.UTC)
                 .toLocalDate()
             onReminderDateChanged(selectedDate)
         }
