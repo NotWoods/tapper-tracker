@@ -14,11 +14,14 @@ import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -84,12 +87,10 @@ class EditFragment : Fragment() {
         binding.reminderUnitField.setAdapter(reminderUnitAdapter)
 
         binding.nameField.setText(args.tag.name)
-        if (args.isNew) {
-            binding.nameField.requestFocus()
-        }
+        binding.nameField.requestFocus()
         binding.nameField.doAfterTextChanged { text ->
             confirmOnExit.isEnabled = true
-            if (!text.isNullOrBlank()) binding.name.error = null
+            viewModel.onNameChange(text)
         }
 
         binding.notesField.setText(args.tag.notes)
@@ -120,6 +121,10 @@ class EditFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.nameError.observe(viewLifecycleOwner) { binding!!.name.error = it }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -196,14 +201,12 @@ class EditFragment : Fragment() {
     /**
      * Validate the text fields then save the tag.
      */
-    private fun saveTag() {
-        val customName = binding!!.nameField.text.toString()
-        if (customName.isBlank()) {
-            binding!!.name.error = getString(R.string.tag_name_blank_error)
-            return
-        }
+    private fun saveTag() = lifecycleScope.launch {
+        val customName = binding!!.nameField.text?.toString()
+        val notes = binding!!.notesField.text?.toString()
 
-        viewModel.saveTag(requireContext(), customName, binding!!.notesField.text.toString())
-        findNavController().navigate(EditFragmentDirections.actionEditFragmentToListFragment())
+        if (viewModel.saveTag(requireContext(), customName, notes)) {
+            findNavController().navigate(EditFragmentDirections.actionEditFragmentToListFragment())
+        }
     }
 }
