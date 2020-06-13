@@ -9,10 +9,11 @@
 
     <TextView
         android:id="@+id/name"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textColor="@color/highEmphasis"
+        style="@style/TextAppearance.App.Headline6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/prompt"
+        android:textColor="@color/highEmphasis"
         app:layout_constraintBottom_toTopOf="@+id/lastTapped"
         app:layout_constraintEnd_toEndOf="@+id/lastTapped"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
 
     <TextView
         android:id="@+id/lastTapped"
-        style="@style/TextAppearance.MaterialComponents.Body2"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:textColor="@color/mediumEmphasis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
 
     <TextView
         android:id="@+id/duration"
-        style="@style/TextAppearance.MaterialComponents.Caption"
+        style="@style/TextAppearance.MaterialComponents.Subtitle2"
         android:textColor="@color/mediumEmphasis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

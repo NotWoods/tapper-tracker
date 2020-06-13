@@ -10,6 +10,18 @@
 
         <item name="android:windowBackground">#1B1C1E</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.App.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
+    </style>
+    
+    <!-- Fonts -->
+    <style name="TextAppearance.App.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/prompt</item>
+        <item name="android:fontFamily">@font/prompt</item>
+    </style>
+    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/prompt</item>
+        <item name="android:fontFamily">@font/prompt</item>
     </style>
 
     <!-- Filled buttons -->
