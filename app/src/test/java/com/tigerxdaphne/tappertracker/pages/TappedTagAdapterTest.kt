@@ -1,13 +1,14 @@
 package com.tigerxdaphne.tappertracker.pages
 
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
-import androidx.test.core.app.launchActivity
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.tigerxdaphne.tappertracker.databinding.ListItemTappedTagBinding
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import com.tigerxdaphne.tappertracker.pages.list.TappedTagViewHolder
 import io.mockk.verify
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,10 +25,8 @@ class TappedTagAdapterTest {
 
     @Before
     fun setup() {
-        val scenario = launchActivity<Activity>()
-        scenario.onActivity { activity ->
-            binding = ListItemTappedTagBinding.inflate(LayoutInflater.from(activity))
-        }
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        binding = ListItemTappedTagBinding.inflate(LayoutInflater.from(context))
     }
 
     @Test
@@ -40,11 +39,10 @@ class TappedTagAdapterTest {
         )
         TappedTagViewHolder(
             binding,
-            janFirst,
             lastUpdatedFormatter
-        ).bind(tag)
+        ).bind(tag, janFirst)
 
-        verify { binding.name.text = "Battery-powered device" }
+        assertEquals("Battery-powered device", binding.name.text)
     }
 
     @Test
@@ -56,10 +54,9 @@ class TappedTagAdapterTest {
         )
         TappedTagViewHolder(
             binding,
-            janFirst,
             lastUpdatedFormatter
-        ).bind(tag)
+        ).bind(tag, janFirst)
 
-        verify { binding.lastTapped.text = "Last tapped on Jan 1, 2020" }
+        assertEquals("Last tapped on Jan 1, 2020", binding.lastTapped.text)
     }
 }
