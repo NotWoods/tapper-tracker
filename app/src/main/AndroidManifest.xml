@@ -24,11 +24,14 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notify.BootReceiver" android:enabled="false">
+        <receiver android:name=".notify.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".notify.AlarmReceiver" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

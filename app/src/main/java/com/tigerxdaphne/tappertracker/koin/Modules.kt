@@ -1,8 +1,6 @@
 package com.tigerxdaphne.tappertracker.koin
 
 import android.app.AlarmManager
-import android.app.NotificationManager
-import android.nfc.NfcManager
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -12,8 +10,11 @@ import com.tigerxdaphne.tappertracker.db.AppDatabase
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.db.TappedTagDao
 import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
+import com.tigerxdaphne.tappertracker.notify.ReminderNotifier
 import kotlinx.coroutines.CoroutineScope
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.named
+import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import java.time.Clock
 
@@ -37,5 +38,6 @@ val systemServiceModule = module {
 val alarmModule = module {
     single<Clock> { Clock.systemUTC() }
     single<AlarmScheduler> { AlarmScheduler(get(), get()) }
-    single<CoroutineScope> { ProcessLifecycleOwner.get().lifecycleScope }
+    single<ReminderNotifier> { ReminderNotifier(get(), get()) }
+    single<CoroutineScope>(qualifier<ProcessLifecycleOwner>()) { ProcessLifecycleOwner.get().lifecycleScope }
 }

@@ -1,7 +1,6 @@
 package com.tigerxdaphne.tappertracker.notify
 
 import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.content.Context
 import android.os.Build
@@ -10,16 +9,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.time.LocalDate
 
 const val NOTIFICATION_CHANNEL_ID = "tag_reminder"
 
-class ReminderNotifier : KoinComponent {
-
-    private val repository: TappedRepository by inject()
-    private val notificationManager: NotificationManagerCompat by inject()
+class ReminderNotifier(
+    private val repository: TappedRepository,
+    private val notificationManager: NotificationManagerCompat
+) {
 
     /**
      * Display a notification with all that tags that have reminders set for [today].

@@ -16,6 +16,8 @@ import io.mockk.mockkObject
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
@@ -46,7 +48,7 @@ class AlarmSchedulerTest {
     @Test
     fun noopIfNoUpcomingReminder() = runBlockingTest {
         coEvery { repository.getUpcomingReminder(any()) } returns null
-        scheduler.scheduleUpcomingReminderAlarm(context, mockk())
+        assertFalse(scheduler.scheduleUpcomingReminderAlarm(context, mockk()))
         verify { AlarmReceiver wasNot Called }
         verify { alarmManager wasNot Called }
     }
@@ -57,7 +59,7 @@ class AlarmSchedulerTest {
         val tag = TagReminder(date)
         coEvery { repository.getUpcomingReminder(any()) } returns tag
 
-        scheduler.scheduleUpcomingReminderAlarm(context, mockk())
+        assertTrue(scheduler.scheduleUpcomingReminderAlarm(context, mockk()))
 
         val expectedDateTime = LocalDateTime.of(2020, 1, 1, 8, 0)
             .atZone(ZoneOffset.UTC)
@@ -74,7 +76,7 @@ class AlarmSchedulerTest {
         val tag = TagReminder(date)
         coEvery { repository.getUpcomingReminder(any()) } returns tag
 
-        scheduler.scheduleUpcomingReminderAlarm(context, mockk())
+        assertTrue(scheduler.scheduleUpcomingReminderAlarm(context, mockk()))
 
         val expectedDateTime = LocalDateTime.of(2020, 1, 1, 8, 0)
             .atZone(timeZone)

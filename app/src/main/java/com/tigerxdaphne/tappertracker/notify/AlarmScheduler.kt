@@ -20,9 +20,10 @@ class AlarmScheduler(
      * Sets up an alarm to fire when the next reminder is ready.
      * The alarm is triggered after the start of the day, when Android feels like it
      * (phone is awake).
+     * @return If the alarm was set or not.
      */
-    suspend fun scheduleUpcomingReminderAlarm(context: Context, today: LocalDate) {
-        val tag = repository.getUpcomingReminder(today) ?: return
+    suspend fun scheduleUpcomingReminderAlarm(context: Context, today: LocalDate): Boolean {
+        val tag = repository.getUpcomingReminder(today) ?: return false
 
         val alarmIntent = AlarmReceiver.createPendingIntent(context)
         val alarmDateTime = tag.reminder.atTime(alarmTime).atZone(timeZone())
@@ -32,5 +33,7 @@ class AlarmScheduler(
             alarmDateTime.toInstant().toEpochMilli(),
             alarmIntent
         )
+
+        return true
     }
 }
