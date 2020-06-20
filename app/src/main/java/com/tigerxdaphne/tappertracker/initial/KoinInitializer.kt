@@ -1,23 +1,25 @@
-package com.tigerxdaphne.tappertracker
+package com.tigerxdaphne.tappertracker.initial
 
-import android.app.Application
-import com.tigerxdaphne.tappertracker.koin.alarmModule
-import com.tigerxdaphne.tappertracker.koin.databaseModule
-import com.tigerxdaphne.tappertracker.koin.systemServiceModule
+import android.content.Context
+import androidx.startup.Initializer
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.KoinContextHandler
 import org.koin.core.context.startKoin
 
-class TapperTrackerApplication : Application() {
+/**
+ * Sets up Koin when the app starts up.
+ */
+class KoinInitializer : Initializer<KoinContextHandler> {
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun create(context: Context): KoinContextHandler {
         if (koinNotStarted()) {
             startKoin {
-                androidContext(this@TapperTrackerApplication)
+                androidContext(context)
                 modules(databaseModule, systemServiceModule, alarmModule)
             }
         }
+
+        return KoinContextHandler
     }
 
     /**
@@ -25,4 +27,6 @@ class TapperTrackerApplication : Application() {
      * This check avoids multiple starts.
      */
     private fun koinNotStarted() = KoinContextHandler.getOrNull() == null
+
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

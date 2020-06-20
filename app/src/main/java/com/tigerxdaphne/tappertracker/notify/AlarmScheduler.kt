@@ -2,7 +2,6 @@ package com.tigerxdaphne.tappertracker.notify
 
 import android.app.AlarmManager
 import android.content.Context
-import androidx.annotation.VisibleForTesting
 import com.tigerxdaphne.tappertracker.db.TappedRepository
 import java.time.LocalDate
 import java.time.LocalTime
@@ -28,6 +27,7 @@ class AlarmScheduler(
         val alarmIntent = AlarmReceiver.createPendingIntent(context)
         val alarmDateTime = tag.reminder.atTime(alarmTime).atZone(timeZone())
 
+        alarmManager.cancel(alarmIntent)
         alarmManager.set(
             AlarmManager.RTC,
             alarmDateTime.toInstant().toEpochMilli(),

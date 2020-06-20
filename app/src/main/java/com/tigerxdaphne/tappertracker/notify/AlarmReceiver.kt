@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.tigerxdaphne.tappertracker.initial.processScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -22,7 +23,7 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
     private val clock: Clock by inject()
     private val alarmScheduler: AlarmScheduler by inject()
     private val reminderNotifier: ReminderNotifier by inject()
-    private val coroutineScope: CoroutineScope by inject(qualifier<ProcessLifecycleOwner>())
+    private val coroutineScope: CoroutineScope by inject(processScope)
 
     /**
      * Alarm went off, show a notification and schedule the next alarm

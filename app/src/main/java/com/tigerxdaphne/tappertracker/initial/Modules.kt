@@ -1,4 +1,4 @@
-package com.tigerxdaphne.tappertracker.koin
+package com.tigerxdaphne.tappertracker.initial
 
 import android.app.AlarmManager
 import androidx.core.app.NotificationManagerCompat
@@ -13,10 +13,11 @@ import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
 import com.tigerxdaphne.tappertracker.notify.ReminderNotifier
 import kotlinx.coroutines.CoroutineScope
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.qualifier.named
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import java.time.Clock
+import java.time.Instant
+import java.time.ZoneOffset
 
 val databaseModule = module {
     single<AppDatabase> {
@@ -39,5 +40,7 @@ val alarmModule = module {
     single<Clock> { Clock.systemUTC() }
     single<AlarmScheduler> { AlarmScheduler(get(), get()) }
     single<ReminderNotifier> { ReminderNotifier(get(), get()) }
-    single<CoroutineScope>(qualifier<ProcessLifecycleOwner>()) { ProcessLifecycleOwner.get().lifecycleScope }
+    single<CoroutineScope>(processScope) { ProcessLifecycleOwner.get().lifecycleScope }
 }
+
+val processScope = qualifier<ProcessLifecycleOwner>()

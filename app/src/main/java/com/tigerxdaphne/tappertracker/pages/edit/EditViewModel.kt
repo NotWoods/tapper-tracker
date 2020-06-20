@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
 import java.time.ZoneId
@@ -31,6 +32,7 @@ class EditViewModel(
     private val isNew: Boolean
 ) : ViewModel(), KoinComponent {
 
+    private val clock: Clock by inject()
     private val repository: TappedRepository by inject()
     private val alarmScheduler: AlarmScheduler by inject()
     private val _nameError = MutableLiveData<String?>(null)
@@ -96,7 +98,7 @@ class EditViewModel(
             } else {
                 repository.updateTag(editedTag)
             }
-            alarmScheduler.scheduleUpcomingReminderAlarm(context, LocalDate.now())
+            alarmScheduler.scheduleUpcomingReminderAlarm(context, LocalDate.now(clock))
         }
 
         return true

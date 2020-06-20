@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_BOOT_COMPLETED
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.tigerxdaphne.tappertracker.initial.processScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -20,7 +21,7 @@ class BootReceiver : BroadcastReceiver(), KoinComponent {
 
     private val clock: Clock by inject()
     private val alarmScheduler: AlarmScheduler by inject()
-    private val coroutineScope: CoroutineScope by inject(qualifier<ProcessLifecycleOwner>())
+    private val coroutineScope: CoroutineScope by inject(processScope)
 
     /**
      * Device has restarted, re-schedule the next alarm
