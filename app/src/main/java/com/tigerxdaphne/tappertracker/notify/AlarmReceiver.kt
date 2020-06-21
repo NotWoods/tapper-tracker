@@ -5,13 +5,11 @@ import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ProcessLifecycleOwner
 import com.tigerxdaphne.tappertracker.initial.processScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.koin.core.qualifier.qualifier
 import java.time.Clock
 import java.time.LocalDate
 

@@ -4,7 +4,6 @@ import android.content.DialogInterface.BUTTON_POSITIVE
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController

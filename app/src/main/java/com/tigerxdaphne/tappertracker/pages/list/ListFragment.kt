@@ -1,6 +1,5 @@
 package com.tigerxdaphne.tappertracker.pages.list
 
-import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -1,7 +1,6 @@
 package com.tigerxdaphne.tappertracker.pages.edit
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,13 +14,11 @@ import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
-import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -86,7 +83,7 @@ class EditViewModel(
             return false
         }
 
-        withContext(viewModelScope.coroutineContext) {
+        viewModelScope.launch {
             val editedTag = TappedTagModel.fromInterface(originalTag).copy(
                 reminder = reminderDate,
                 name = customName,
@@ -99,7 +96,7 @@ class EditViewModel(
                 repository.updateTag(editedTag)
             }
             alarmScheduler.scheduleUpcomingReminderAlarm(context, LocalDate.now(clock))
-        }
+        }.join()
 
         return true
     }

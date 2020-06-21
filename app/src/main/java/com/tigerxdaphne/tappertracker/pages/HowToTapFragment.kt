@@ -2,23 +2,20 @@ package com.tigerxdaphne.tappertracker.pages
 
 import android.content.Intent
 import android.nfc.NfcAdapter
-import android.nfc.NfcManager
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.provider.Settings
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-
+import androidx.fragment.app.Fragment
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentHowToTapBinding
 import com.tigerxdaphne.tappertracker.viewBinding
-import org.koin.android.ext.android.inject
 
 private enum class HowToTapContent(
         @DrawableRes val icon: Int,

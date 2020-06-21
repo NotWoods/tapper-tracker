@@ -16,8 +16,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import java.time.Clock
-import java.time.Instant
-import java.time.ZoneOffset
 
 val databaseModule = module {
     single<AppDatabase> {
@@ -42,5 +40,3 @@ val alarmModule = module {
     single<ReminderNotifier> { ReminderNotifier(get(), get()) }
     single<CoroutineScope>(processScope) { ProcessLifecycleOwner.get().lifecycleScope }
 }
-
-val processScope = qualifier<ProcessLifecycleOwner>()
