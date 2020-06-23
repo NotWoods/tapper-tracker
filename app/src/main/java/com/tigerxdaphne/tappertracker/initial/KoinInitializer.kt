@@ -15,7 +15,7 @@ class KoinInitializer : Initializer<KoinContextHandler> {
         if (koinNotStarted()) {
             startKoin {
                 androidContext(context)
-                modules(databaseModule, systemServiceModule, alarmModule)
+                modules(databaseModule, systemServiceModule, alarmModule, viewModelModule)
             }
         }
 

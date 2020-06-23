@@ -11,8 +11,14 @@ import com.tigerxdaphne.tappertracker.db.TappedRepository
 import com.tigerxdaphne.tappertracker.db.TappedTagDao
 import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
 import com.tigerxdaphne.tappertracker.notify.ReminderNotifier
+import com.tigerxdaphne.tappertracker.pages.edit.EditFragmentArgs
+import com.tigerxdaphne.tappertracker.pages.edit.EditViewModel
+import com.tigerxdaphne.tappertracker.pages.list.ListViewModel
+import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentArgs
+import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedViewModel
 import kotlinx.coroutines.CoroutineScope
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import java.time.Clock
@@ -26,17 +32,23 @@ val databaseModule = module {
         ).build()
     }
     single<TappedTagDao> { get<AppDatabase>().tappedTagDao() }
-    single<TappedRepository> { TappedRepository(get()) }
+    single { TappedRepository(get()) }
 }
 
 val systemServiceModule = module {
     single<AlarmManager> { androidContext().getSystemService()!! }
-    single<NotificationManagerCompat> { NotificationManagerCompat.from(androidContext()) }
+    single { NotificationManagerCompat.from(androidContext()) }
 }
 
 val alarmModule = module {
     single<Clock> { Clock.systemUTC() }
-    single<AlarmScheduler> { AlarmScheduler(get(), get()) }
-    single<ReminderNotifier> { ReminderNotifier(get(), get()) }
+    single { AlarmScheduler(get(), get()) }
+    single { ReminderNotifier(get(), get()) }
     single<CoroutineScope>(processScope) { ProcessLifecycleOwner.get().lifecycleScope }
+}
+
+val viewModelModule = module {
+    viewModel { (args: EditFragmentArgs) -> EditViewModel(args, get(), get(), get()) }
+    viewModel { ListViewModel(get(), get()) }
+    viewModel { (args: ExistingTagTappedFragmentArgs) -> ExistingTagTappedViewModel(args, get(), get()) }
 }

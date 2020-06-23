@@ -13,7 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -22,6 +21,8 @@ import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
 import com.tigerxdaphne.tappertracker.viewBinding
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -33,9 +34,7 @@ import java.time.temporal.ChronoUnit
 class EditFragment : Fragment() {
 
     private val args by navArgs<EditFragmentArgs>()
-    private val viewModel by viewModels<EditViewModel> {
-        EditViewModel.Factory(args)
-    }
+    private val viewModel by viewModel<EditViewModel> { parametersOf(args) }
     private var binding by viewBinding<FragmentEditBinding>()
     private lateinit var reminderUnitAdapter: TimeUnitAdapter
     private lateinit var confirmOnExit: OnBackPressedCallback

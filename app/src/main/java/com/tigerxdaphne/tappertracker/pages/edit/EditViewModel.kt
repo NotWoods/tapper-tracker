@@ -4,18 +4,14 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import com.tigerxdaphne.tappertracker.notify.AlarmScheduler
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
@@ -25,13 +21,14 @@ import java.time.format.FormatStyle
 import java.time.temporal.ChronoUnit
 
 class EditViewModel(
-    private val originalTag: TappedTag,
-    private val isNew: Boolean
-) : ViewModel(), KoinComponent {
+    args: EditFragmentArgs,
+    private val clock: Clock,
+    private val repository: TappedRepository,
+    private val alarmScheduler: AlarmScheduler
+) : ViewModel() {
 
-    private val clock: Clock by inject()
-    private val repository: TappedRepository by inject()
-    private val alarmScheduler: AlarmScheduler by inject()
+    private val originalTag = args.tag
+    private val isNew = args.isNew
     private val _nameError = MutableLiveData<String?>(null)
 
     /** Formats dates in a user-readable form. */
@@ -102,14 +99,4 @@ class EditViewModel(
     }
 
     private fun LocalDate.toEpochMilli() = atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
-
-    class Factory(
-        private val args: EditFragmentArgs
-    ) : ViewModelProvider.Factory {
-        @Suppress("Unchecked_Cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T = EditViewModel(
-            originalTag = args.tag,
-            isNew = args.isNew
-        ) as T
-    }
 }

@@ -1,23 +1,21 @@
 package com.tigerxdaphne.tappertracker.pages.tapped
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.db.TappedTag
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
 
 class ExistingTagTappedViewModel(
-    private val existingTag: TappedTag
-) : ViewModel(), KoinComponent {
+    args: ExistingTagTappedFragmentArgs,
+    private val clock: Clock,
+    private val repository: TappedRepository
+) : ViewModel() {
 
-    private val repository: TappedRepository by inject()
+    private val existingTag = args.tag
 
     fun stop() = viewModelScope.launch {
         val updatedTag = TappedTagModel.fromInterface(existingTag).copy(
@@ -37,13 +35,5 @@ class ExistingTagTappedViewModel(
         repository.updateTag(newTag)
     }
 
-    @VisibleForTesting
-    internal fun today() = LocalDate.now()
-
-    class Factory(private val args: ExistingTagTappedFragmentArgs) : ViewModelProvider.Factory {
-        @Suppress("Unchecked_Cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T = ExistingTagTappedViewModel(
-            args.tag
-        ) as T
-    }
+    private fun today() = LocalDate.now(clock)
 }

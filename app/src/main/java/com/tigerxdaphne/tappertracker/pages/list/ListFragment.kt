@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tigerxdaphne.tappertracker.databinding.FragmentListBinding
 import com.tigerxdaphne.tappertracker.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
-    private val viewModel by viewModels<ListViewModel>()
+    private val viewModel by viewModel<ListViewModel>()
     private var binding by viewBinding<FragmentListBinding>()
     private lateinit var adapter: TappedTagAdapter
 

@@ -6,21 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.tigerxdaphne.tappertracker.db.TappedRepository
-import com.tigerxdaphne.tappertracker.db.TappedTag
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.time.Clock
 import java.time.LocalDate
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class ListViewModel : ViewModel(), KoinComponent {
-
-    private val repository: TappedRepository by inject()
-
-    val clock: Clock by inject()
+class ListViewModel(
+    repository: TappedRepository,
+    val clock: Clock
+) : ViewModel() {
 
     val tags = repository.getAllTags().asLiveData(viewModelScope.coroutineContext)
 
@@ -41,10 +33,10 @@ class ListViewModel : ViewModel(), KoinComponent {
     fun dateChanged(): Boolean {
         val newDate = LocalDate.now(clock)
         return if (newDate == today) {
-            true
+            false
         } else {
             today = newDate
-            false
+            true
         }
     }
 }

@@ -78,6 +78,7 @@ dependencies {
     implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
     implementation "com.google.android.material:material:$material_version"
     implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     kapt "androidx.room:room-compiler:$room_version"
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.0.5"
 

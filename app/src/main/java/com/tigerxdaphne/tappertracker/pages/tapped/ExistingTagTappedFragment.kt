@@ -7,21 +7,20 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentExistingTagTappedBinding
 import com.tigerxdaphne.tappertracker.pages.tapped.ExistingTagTappedFragmentDirections.Companion.actionExistingTagTappedFragmentToEditFragment
 import com.tigerxdaphne.tappertracker.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ExistingTagTappedFragment : DialogFragment() {
 
     private val navController by lazy { findNavController() }
     private val args by navArgs<ExistingTagTappedFragmentArgs>()
-    private val viewModel by viewModels<ExistingTagTappedViewModel> {
-        ExistingTagTappedViewModel.Factory(args)
-    }
+    private val viewModel by viewModel<ExistingTagTappedViewModel> { parametersOf(args) }
     private var binding by viewBinding<FragmentExistingTagTappedBinding>()
 
     override fun onCreateView(
