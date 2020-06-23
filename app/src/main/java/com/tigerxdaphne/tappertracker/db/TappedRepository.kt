@@ -19,8 +19,8 @@ class TappedRepository(
 
     fun getAllTags(): Flow<List<TappedTag>> = tappedTagDao.getAll()
 
-    suspend fun getUpcomingReminder(today: LocalDate) =
-        tappedTagDao.getUpcomingReminder(today)
+    suspend fun getUpcomingReminder(after: LocalDate) =
+        tappedTagDao.getUpcomingReminder(after)
 
     suspend fun getAllRemindersOnDate(date: LocalDate): List<TappedTag> =
         tappedTagDao.getAllRemindersOnDate(date)

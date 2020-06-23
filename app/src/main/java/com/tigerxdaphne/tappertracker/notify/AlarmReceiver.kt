@@ -28,8 +28,14 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
      */
     override fun onReceive(context: Context, intent: Intent) {
         val today = LocalDate.now(clock)
-        coroutineScope.launch { reminderNotifier.displayReminderNotification(context, today) }
-        coroutineScope.launch { alarmScheduler.scheduleUpcomingReminderAlarm(context, today) }
+
+        // Run tasks in parallel
+        coroutineScope.launch {
+            reminderNotifier.displayReminderNotification(context, today)
+        }
+        coroutineScope.launch {
+            alarmScheduler.scheduleUpcomingReminderAlarm(context, after = today.plusDays(1))
+        }
     }
 
     companion object {

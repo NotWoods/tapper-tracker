@@ -19,8 +19,8 @@ interface TappedTagDao {
     @Query("SELECT * from tags ORDER BY lastSet DESC")
     fun getAll(): Flow<List<TappedTagModel>>
 
-    @Query("SELECT reminder from tags WHERE reminder >= :today ORDER BY reminder ASC LIMIT 1")
-    suspend fun getUpcomingReminder(today: LocalDate): TagReminder?
+    @Query("SELECT reminder from tags WHERE reminder >= :after ORDER BY reminder ASC LIMIT 1")
+    suspend fun getUpcomingReminder(after: LocalDate): TagReminder?
 
     @Query("SELECT * from tags WHERE reminder = :date")
     suspend fun getAllRemindersOnDate(date: LocalDate): List<TappedTagModel>

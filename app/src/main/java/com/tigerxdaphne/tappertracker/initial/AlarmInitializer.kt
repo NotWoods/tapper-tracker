@@ -21,8 +21,9 @@ class AlarmInitializer : Initializer<AlarmScheduler>, KoinComponent {
     private val coroutineScope: CoroutineScope by inject(processScope)
 
     override fun create(context: Context): AlarmScheduler {
+        val today = LocalDate.now(clock)
         coroutineScope.launch {
-            alarmScheduler.scheduleUpcomingReminderAlarm(context, today = LocalDate.now(clock))
+            alarmScheduler.scheduleUpcomingReminderAlarm(context, after = today)
         }
 
         return alarmScheduler
