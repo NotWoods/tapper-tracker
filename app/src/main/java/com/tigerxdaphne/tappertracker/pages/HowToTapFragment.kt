@@ -9,8 +9,10 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.tigerxdaphne.tappertracker.R
@@ -18,13 +20,13 @@ import com.tigerxdaphne.tappertracker.databinding.FragmentHowToTapBinding
 import com.tigerxdaphne.tappertracker.viewBinding
 
 private enum class HowToTapContent(
-        @DrawableRes val icon: Int,
-        @StringRes val title: Int,
-        @StringRes val description: Int,
-        val showSettingsButton: Boolean
+    @DrawableRes val icon: Int,
+    @StringRes val title: Int,
+    @StringRes val description: Int,
+    val showSettingsButton: Boolean
 ) {
-    NFC_DISABLED(R.drawable.ic_nfc_disabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, true),
-    ADD_TAG(R.drawable.ic_nfc_enabled, R.string.add_tag_title, R.string.add_tag_description, false)
+    NFC_DISABLED(R.drawable.onboarding_tag_disabled, R.string.nfc_disabled_title, R.string.nfc_disabled_description, true),
+    ADD_TAG(R.drawable.onboarding_tag, R.string.add_tag_title, R.string.add_tag_description, false)
 }
 
 class HowToTapFragment : Fragment() {
@@ -74,14 +76,47 @@ class HowToTapFragment : Fragment() {
      * Display the content described in the given enum.
      */
     private fun displayContent(content: HowToTapContent) {
+        val binding = binding!!
+
         if (content != lastContent) {
-            val binding = binding ?: return
-            binding.icon.setImageResource(content.icon)
             binding.title.text = getString(content.title)
             binding.description.text = getString(content.description)
             binding.button.isVisible = content.showSettingsButton
-            lastContent = content
         }
+
+        // Animate the first time
+        if (lastContent == null) {
+            binding.onboardingPhone.animate()
+                .translationYBy(resources.getDimension(R.dimen.phone_translation))
+                .setDuration(1200L)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .setListener(null)
+
+            when (content) {
+                HowToTapContent.ADD_TAG -> {
+                    binding.onboardingTagEffect.animate()
+                        .alpha(1f)
+                        .setStartDelay(1000L)
+                        .setDuration(400L)
+                        .setListener(null)
+                }
+                HowToTapContent.NFC_DISABLED -> {
+                    val disabledIcon = getDrawable(binding.root.context, content.icon)
+                    binding.onboardingTag.setImageDrawable(disabledIcon)
+                }
+            }
+        } else if (content != lastContent) {
+            val tagIcon = getDrawable(binding.root.context, content.icon)
+            binding.onboardingTag.setImageDrawable(tagIcon)
+
+            binding.onboardingTagEffect.animate().cancel()
+            binding.onboardingTagEffect.alpha = when (content) {
+                HowToTapContent.ADD_TAG -> 1f
+                HowToTapContent.NFC_DISABLED -> 0f
+            }
+        }
+
+        lastContent = content
     }
 
     /**
