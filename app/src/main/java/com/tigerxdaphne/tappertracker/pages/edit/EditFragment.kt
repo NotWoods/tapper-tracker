@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.databinding.FragmentEditBinding
+import com.tigerxdaphne.tappertracker.db.toUtcDate
 import com.tigerxdaphne.tappertracker.viewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -104,18 +105,21 @@ class EditFragment : Fragment() {
 
             onReminderPeriodChanged(
                 duration = durationLong,
-                unitPosition = binding.reminderUnitField.listSelection
+                unitPosition = viewModel.reminderUnitPosition
             )
         }
+
+        binding.reminderUnitField.listSelection = viewModel.reminderUnitPosition
         binding.reminderUnitField.setOnItemClickListener { _, _, position, _ ->
             confirmOnExit.isEnabled = true
+            viewModel.reminderUnitPosition = position
             onReminderPeriodChanged(
                 duration = binding.reminderDurationField.text?.toString()?.toLongOrNull(),
                 unitPosition = position
             )
         }
 
-        binding.dateField.setOnClickListener {
+        binding.on.setOnClickListener {
             showDatePicker()
         }
 
@@ -156,14 +160,14 @@ class EditFragment : Fragment() {
         val timeUnit = viewModel.timeUnits.getOrNull(unitPosition) ?: return
         val date = args.tag.lastSet.plus(duration, timeUnit)
 
-        binding?.dateField?.setText(date.format(viewModel.dateFieldFormatter))
+        binding?.on?.text = viewModel.formatDate(date)
     }
 
     private fun onReminderDateChanged(date: LocalDate) {
         val binding = binding ?: return
 
         viewModel.reminderDate = date
-        binding.dateField.setText(date.format(viewModel.dateFieldFormatter))
+        binding.on.text = viewModel.formatDate(date)
 
         val days = viewModel.daysUntil(date)
         binding.reminderDurationField.setText(days.toString())
@@ -188,9 +192,7 @@ class EditFragment : Fragment() {
 
         datePicker.addOnPositiveButtonClickListener { selection ->
             confirmOnExit.isEnabled = true
-            val selectedDate = Instant.ofEpochMilli(selection)
-                .atZone(ZoneOffset.UTC)
-                .toLocalDate()
+            val selectedDate = Instant.ofEpochMilli(selection).toUtcDate()
             onReminderDateChanged(selectedDate)
         }
 

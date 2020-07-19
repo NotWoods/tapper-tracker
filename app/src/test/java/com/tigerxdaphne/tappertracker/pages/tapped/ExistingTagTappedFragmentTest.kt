@@ -1,18 +1,13 @@
 package com.tigerxdaphne.tappertracker.pages.tapped
 
-import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.tigerxdaphne.tappertracker.R
 import com.tigerxdaphne.tappertracker.db.TappedTagModel
-import kotlinx.android.synthetic.main.fragment_existing_tag_tapped.view.*
-import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDate

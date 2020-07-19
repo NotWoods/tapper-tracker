@@ -1,6 +1,7 @@
 package com.tigerxdaphne.tappertracker.initial
 
 import android.app.AlarmManager
+import android.content.res.Resources
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -36,6 +37,7 @@ val databaseModule = module {
 }
 
 val systemServiceModule = module {
+    single<Resources> { androidContext().resources }
     single<AlarmManager> { androidContext().getSystemService()!! }
     single { NotificationManagerCompat.from(androidContext()) }
 }
@@ -48,7 +50,7 @@ val alarmModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { (args: EditFragmentArgs) -> EditViewModel(args, get(), get(), get()) }
+    viewModel { (args: EditFragmentArgs) -> EditViewModel(args, get(), get(), get(), get()) }
     viewModel { ListViewModel(get(), get()) }
     viewModel { (args: ExistingTagTappedFragmentArgs) -> ExistingTagTappedViewModel(args, get(), get()) }
 }
